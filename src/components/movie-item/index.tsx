@@ -31,7 +31,7 @@ export default function MovieItem({ size }: { size: string }) {
             <span className="text-gray-300 text-xs">2018</span>
           ) : (
             <span className="text-gray-300 text-xs">
-              Adventure / Scifi / Action
+              Adventure / Sci-fi / Action
             </span>
           )}
         </div>

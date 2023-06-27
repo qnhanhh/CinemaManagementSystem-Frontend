@@ -4,7 +4,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import { menuType } from "./menu-list";
+import { menuType } from "./constant";
 
 export default function Menu({ name, link }: menuType) {
   return (

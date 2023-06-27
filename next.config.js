@@ -6,6 +6,10 @@ const nextConfig = {
             protocol: 'https',
             hostname: 'images.thedirect.com',
           },
+          {
+            protocol: 'https',
+            hostname: 'mir-s3-cdn-cf.behance.net',
+          },
         ],
       },
 }

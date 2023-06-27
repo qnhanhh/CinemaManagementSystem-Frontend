@@ -1,4 +1,4 @@
-import MovieItem from "@/components/MovieItem";
+import MovieItem from "@/components/movie-item";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Sheet,
@@ -24,17 +24,17 @@ export default function Trailers() {
                 New trailers
               </SheetTitle>
               <SheetDescription className="flex flex-col items-center gap-4">
-                <MovieItem />
-                <MovieItem />
-                <MovieItem />
-                <MovieItem />
-                <MovieItem />
-                <MovieItem />
-                <MovieItem />
-                <MovieItem />
-                <MovieItem />
-                <MovieItem />
-                <MovieItem />
+                <MovieItem size='md' />
+                <MovieItem size='md' />
+                <MovieItem size='md' />
+                <MovieItem size='md' />
+                <MovieItem size='md' />
+                <MovieItem size='md' />
+                <MovieItem size='md' />
+                <MovieItem size='md' />
+                <MovieItem size='md' />
+                <MovieItem size='md' />
+                <MovieItem size='md' />
               </SheetDescription>
             </SheetHeader>
           </ScrollArea>

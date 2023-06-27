@@ -1,9 +1,5 @@
+import { menuType } from "./constant";
 import Menu from "./menu";
-
-export type menuType = {
-  name: string;
-  link: string;
-};
 
 const menuList: menuType[] = [
   {

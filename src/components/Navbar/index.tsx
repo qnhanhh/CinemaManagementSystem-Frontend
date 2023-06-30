@@ -1,7 +1,7 @@
 import Logo from "@/components/navbar/logo";
 import MenuList from "@/components/navbar/menu-list";
 import SearchBar from "@/components/navbar/search-bar";
-import UserProfile from "@/components/navbar/user-profile";
+import UserProfile from "../user-profile";
 
 export default function Navbar() {
   return (

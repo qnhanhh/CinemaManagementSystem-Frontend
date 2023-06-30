@@ -8,8 +8,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { LogOut } from "lucide-react";
+import { DialogTrigger } from "@/components/ui/dialog";
 
-export default function UserProfile() {
+export default function Dropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -21,12 +22,14 @@ export default function UserProfile() {
       <DropdownMenuContent>
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Profile</DropdownMenuItem>
+        <DialogTrigger asChild>
+          <DropdownMenuItem>Profile</DropdownMenuItem>
+        </DialogTrigger>
         <DropdownMenuItem>Billing</DropdownMenuItem>
         <DropdownMenuItem>Report</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <LogOut className="mr-1"/>
+          <LogOut className="mr-1" />
           Log out
         </DropdownMenuItem>
       </DropdownMenuContent>

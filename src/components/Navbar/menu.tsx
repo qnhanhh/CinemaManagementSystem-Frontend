@@ -5,15 +5,20 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 import { menuType } from "./constant";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Menu({ name, link }: menuType) {
+  const router = usePathname();
+
   return (
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuLink
             href={link}
-            className="text-gray-600 active:text-white hover:text-white p-3"
+            className={`hover:text-white p-3 ${
+              router == link ? "text-white" : "text-gray-600"
+            }`}
           >
             {name}
           </NavigationMenuLink>

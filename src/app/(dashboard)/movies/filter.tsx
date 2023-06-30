@@ -1,4 +1,3 @@
-import MovieList from "@/components/movie-list";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Sheet,
@@ -8,7 +7,7 @@ import {
 } from "@/components/ui/sheet";
 import { Sparkles } from "lucide-react";
 
-export default function Trailers() {
+export default function Filter() {
   return (
     <div className="absolute left-8 bottom-8">
       <Sheet>
@@ -18,7 +17,7 @@ export default function Trailers() {
         <SheetContent className="bg-black">
           <ScrollArea className="h-full w-full mt-5">
             <SheetDescription className="flex flex-col items-center gap-6">
-              <MovieList header="New trailers" movieSize="md" direction="col" />
+
             </SheetDescription>
           </ScrollArea>
         </SheetContent>

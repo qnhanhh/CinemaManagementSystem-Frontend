@@ -67,7 +67,7 @@ export const columns: ColumnDef<Task>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex w-[100px] gap-2 items-center">
-          <Eye size={16} />
+          <Eye size={18} />
           <span>{row.original.views}</span>
         </div>
       );

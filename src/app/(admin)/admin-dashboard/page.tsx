@@ -30,7 +30,7 @@ export default function DashboardPage() {
               </Button>
             </div>
           </div>
-          <Tabs defaultValue="overview" className="space-y-4">
+          <Tabs defaultValue="movies" className="space-y-4">
             <TabsList>
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="movies">Movies</TabsTrigger>

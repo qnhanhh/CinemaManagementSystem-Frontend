@@ -1,71 +1,43 @@
-import {
-  ArrowDownToLine,
-  ArrowRightToLine,
-  ArrowUpCircle,
-  ArrowUpToLine,
-  CheckCircle2,
-  Circle,
-  HelpCircle,
-  XCircle,
-} from "lucide-react";
+import { ArrowDownToLine, ArrowRightToLine, ArrowUpToLine } from "lucide-react";
 
-export const labels = [
+export const tasks = [
   {
-    value: "bug",
-    label: "Bug",
+    id: "1",
+    title: "The Amazing Spiderman",
+    genres: "action",
+    views: "2.3M",
+    compareStatus: "increase",
   },
   {
-    value: "feature",
-    label: "Feature",
+    id: "2",
+    title: "The Amazing Spiderman 2",
+    genres: "romantic",
+    views: "2.1M",
+    compareStatus: "decrease",
   },
   {
-    value: "documentation",
-    label: "Documentation",
+    id: "3",
+    title: "Create a new task",
+    genres: "documentation",
+    views: "1.5M",
+    compareStatus: "same",
   },
 ];
 
-export const statuses = [
+export const compareStatus = [
   {
-    value: "backlog",
-    label: "Backlog",
-    icon: HelpCircle,
+    value: "increase",
+    label: "Increase",
+    icon: ArrowUpToLine,
   },
   {
-    value: "todo",
-    label: "Todo",
-    icon: Circle,
-  },
-  {
-    value: "in progress",
-    label: "In Progress",
-    icon: ArrowUpCircle,
-  },
-  {
-    value: "done",
-    label: "Done",
-    icon: CheckCircle2,
-  },
-  {
-    value: "canceled",
-    label: "Canceled",
-    icon: XCircle,
-  },
-];
-
-export const priorities = [
-  {
-    label: "Low",
-    value: "low",
+    value: "decrease",
+    label: "Decrease",
     icon: ArrowDownToLine,
   },
   {
-    label: "Medium",
-    value: "medium",
+    value: "same",
+    label: "Same",
     icon: ArrowRightToLine,
-  },
-  {
-    label: "High",
-    value: "high",
-    icon: ArrowUpToLine,
   },
 ];

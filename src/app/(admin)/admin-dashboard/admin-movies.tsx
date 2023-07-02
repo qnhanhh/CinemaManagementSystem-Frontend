@@ -1,61 +1,28 @@
-import { promises as fs } from "fs"
-import path from "path"
-import { Metadata } from "next"
-import Image from "next/image"
-import { z } from "zod"
+import { Metadata } from "next";
 
-import { columns } from "@/components/task/columns"
-import { DataTable } from "@/components/task/data-table"
-import { taskSchema } from "@/components/task/data/schema"
+import { columns } from "@/components/task/columns";
+import { DataTable } from "@/components/task/data-table";
+import { TabsContent } from "@/components/ui/tabs";
+import { tasks } from "@/components/task/data/data";
 
 export const metadata: Metadata = {
   title: "Tasks",
   description: "A task and issue tracker build using Tanstack Table.",
-}
+};
 
 // Simulate a database read for tasks.
-async function getTasks() {
-  const data = await fs.readFile(
-    path.join(process.cwd(), "app/examples/tasks/data/tasks.json")
-  )
-
-  const tasks = JSON.parse(data.toString())
-
-  return z.array(taskSchema).parse(tasks)
-}
 
 export default async function TaskPage() {
-  const tasks = await getTasks()
-
   return (
-    <>
-      <div className="md:hidden">
-        <Image
-          src="/examples/tasks-light.png"
-          width={1280}
-          height={998}
-          alt="Playground"
-          className="block dark:hidden"
-        />
-        <Image
-          src="/examples/tasks-dark.png"
-          width={1280}
-          height={998}
-          alt="Playground"
-          className="hidden dark:block"
-        />
-      </div>
+    <TabsContent value="movies" className="space-y-4">
       <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
         <div className="flex items-center justify-between space-y-2">
-          <div>
-            <h2 className="text-2xl font-bold tracking-tight">Welcome back!</h2>
-            <p className="text-muted-foreground">
-              Here&apos;s a list of your tasks for this month!
-            </p>
+          <div className="text-white">
+            <h2 className="text-2xl font-bold tracking-tight">Here&apos;s a list of movies in your system!</h2>
           </div>
         </div>
         <DataTable data={tasks} columns={columns} />
       </div>
-    </>
-  )
+    </TabsContent>
+  );
 }

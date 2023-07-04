@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default async function TaskPage() {
   return (
     <TabsContent value="movies" className="space-y-4">
-      <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
+      <div className="hidden h-full flex-1 flex-col space-y-8 py-8 md:flex">
         <div className="flex items-center justify-between space-y-2">
           <div className="text-white">
             <h2 className="text-2xl font-bold tracking-tight">Here&apos;s a list of movies in your system!</h2>

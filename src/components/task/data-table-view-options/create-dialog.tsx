@@ -1,5 +1,5 @@
-"use client";
-
+import GenreDropdown from "@/components/genre-dropdown";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -7,37 +7,38 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
-import { Row } from "@tanstack/react-table";
-import Dropdown from "./dropdown";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import GenreDropdown from "@/components/genre-dropdown";
+import { Label } from "@/components/ui/label";
+import { Plus } from "lucide-react";
 
-interface DataTableRowActionsProps<TData> {
-  row: Row<TData>;
-}
-
-export function DataTableRowActions<TData>({
-  row,
-}: DataTableRowActionsProps<TData>) {
+export function CreateDialog() {
   return (
     <Dialog>
-      <Dropdown />
+      <DialogTrigger asChild>
+        <Button
+          variant="outline"
+          size="sm"
+          className="ml-auto hidden h-8 lg:flex"
+        >
+          <Plus className="mr-2 h-4 w-4" />
+          Create Movie
+        </Button>
+      </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit movie</DialogTitle>
+          <DialogTitle>Create new movie</DialogTitle>
           <DialogDescription>
-            Make changes to your movie here. Click save when you are done.
+            Create your new movie here. Click save when you&apos;re done.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="title" className="text-right">
-              Movie Title
+            <Label htmlFor="name" className="text-right">
+              Movie name
             </Label>
-            <Input id="title" value="Pedro Duarte" className="col-span-3" />
+            <Input id="name" value="Pedro Duarte" className="col-span-3" />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="genres" className="text-right">

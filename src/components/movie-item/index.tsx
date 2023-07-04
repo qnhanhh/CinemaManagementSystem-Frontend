@@ -1,6 +1,9 @@
-import { Star, Triangle } from "lucide-react";
+import { Heart, Play, Plus, Star } from "lucide-react";
 import Image from "next/image";
-import PlayButton from "../button/play-button";
+import { motion } from "framer-motion";
+import PlainButton from "../button/plain-button";
+import TextButton from "../button/text-button";
+import { useState } from "react";
 
 const movieSize = {
   sm: "w-56 h-36",
@@ -9,20 +12,40 @@ const movieSize = {
 };
 
 export default function MovieItem({ size }: { size: string }) {
+  const [isAdded, setIsAdded] = useState(false);
   const { sm, md, lg } = movieSize;
   const itemSize = size == "sm" ? sm : size == "md" ? md : lg;
 
+  const toggleAdd = () => {
+    setIsAdded(!isAdded);
+  };
+
   return (
-    <div className={`relative ${itemSize} rounded-xl overflow-hidden`}>
-      <div className="absolute top-0 left-0 right-0 bottom-0">
+    <motion.div
+      whileHover={{
+        scale: 1.2,
+        marginLeft: "2rem",
+        marginRight: "2rem",
+        zIndex: 10,
+      }}
+      transition={{ type: "tween", duration: 0.2, ease: "easeInOut" }}
+      className={`relative ${itemSize} rounded-xl group`}
+    >
+      <div className="absolute top-0 left-0 right-0 bottom-0 rounded-xl overflow-hidden">
         <Image
           src="https://images.thedirect.com/media/article_full/spider-man-no-way-home-poster-doc-ock.jpg"
           alt=""
           fill
         />
       </div>
-      <div className="flex w-full rounded-xl justify-between gap-3 items-center p-2 absolute bottom-0 bg-opacity-80 bg-black">
-        {size != "sm" && <PlayButton fill="black" background="white" />}
+      <div
+        className="flex w-full rounded-xl justify-between gap-3 items-center p-2 absolute bottom-0 bg-opacity-80 bg-black
+      group-hover:h-full group-hover:top-0 group-hover:items-start
+      "
+      >
+        {size != "sm" && (
+          <PlainButton icon={Play} fill="black" background="white" />
+        )}
         <div className="flex-1 leading-3">
           <p className="text-sm text-white font-semibold">Black Panther</p>
           {size == "md" ? (
@@ -50,6 +73,16 @@ export default function MovieItem({ size }: { size: string }) {
           </div>
         )}
       </div>
-    </div>
+      <div
+        onClick={toggleAdd}
+        className="text-white hidden group-hover:block absolute bottom-2 right-2"
+      >
+        {isAdded ? (
+          <TextButton text="Added to favorites" icon={Heart} />
+        ) : (
+          <TextButton text="Add to favorites" icon={Plus} />
+        )}
+      </div>
+    </motion.div>
   );
 }

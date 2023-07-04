@@ -1,5 +1,5 @@
-import WatchButton from "@/components/button/watch-button";
-import { Eye } from "lucide-react";
+import TextButton from "@/components/button/text-button";
+import { Eye, Play } from "lucide-react";
 import Image from "next/image";
 
 export default function Banner() {
@@ -14,7 +14,7 @@ export default function Banner() {
         />
         <div className="bg-black bg-opacity-10 absolute top-0 bottom-0 left-0 right-0"></div>
         <div className="absolute bottom-4 left-4">
-          <WatchButton />
+          <TextButton text="Watch now" icon={Play} />
         </div>
         <div className="absolute top-4 right-4 flex gap-2 items-center text-lg text-white">
           <Eye />

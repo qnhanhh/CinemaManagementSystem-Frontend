@@ -12,7 +12,7 @@ export default function MovieList({ header, movieSize, direction }: listType) {
           <ChevronRight size={14} />
         </span>
       </div>
-      <div className={`w-full flex gap-6 overflow-scroll no-scrollbar flex-${direction}`}>
+      <div className={`w-full py-8 flex gap-6 overflow-x-scroll overflow-y-hidden no-scrollbar flex-${direction}`}>
         <div className="flex-shrink-0">
           <MovieItem size={movieSize} />
         </div>

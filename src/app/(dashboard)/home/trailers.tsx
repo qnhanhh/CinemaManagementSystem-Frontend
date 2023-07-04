@@ -12,7 +12,7 @@ export default function Trailers() {
   return (
     <div className="absolute left-8 bottom-8">
       <Sheet>
-        <SheetTrigger className="animate-bounce bg-white rounded-full p-2">
+        <SheetTrigger className="animate-bounce bg-white rounded-full p-2 fixed bottom-4">
           <Sparkles size={16} fill="black" />
         </SheetTrigger>
         <SheetContent className="bg-black">

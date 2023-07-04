@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 // Simulate a database read for tasks.
 
-export default async function TaskPage() {
+export default async function AdminMovies() {
   return (
     <TabsContent value="movies" className="space-y-4">
       <div className="hidden h-full flex-1 flex-col space-y-8 py-8 md:flex">

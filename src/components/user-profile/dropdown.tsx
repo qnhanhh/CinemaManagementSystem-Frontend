@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LogOut } from "lucide-react";
 import { DialogTrigger } from "@/components/ui/dialog";
+import Link from "next/link";
 
 export default function Dropdown() {
   return (
@@ -29,8 +30,10 @@ export default function Dropdown() {
         <DropdownMenuItem>Report</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <LogOut className="mr-1" />
-          Log out
+          <Link href="/account/login">
+            <LogOut className="mr-1" />
+            Log out
+          </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

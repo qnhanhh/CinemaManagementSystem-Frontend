@@ -1,16 +1,16 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import {Eye} from 'lucide-react'
+import { Eye } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 
-import { compareStatus, tasks } from "../data/data";
-import { Task } from "../data/schema";
+import { compareStatus } from "../data/data";
+import { UserType } from "../data/schema";
 import { DataTableColumnHeader } from "../data-table-column-header";
 import { DataTableRowActions } from "../data-table-row-actions";
 
-export const columns: ColumnDef<Task>[] = [
+export const columns: ColumnDef<UserType>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -35,7 +35,7 @@ export const columns: ColumnDef<Task>[] = [
   {
     accessorKey: "id",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Movie ID" />
+      <DataTableColumnHeader column={column} title="User ID" />
     ),
     cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
     enableSorting: false,
@@ -44,13 +44,18 @@ export const columns: ColumnDef<Task>[] = [
   {
     accessorKey: "title",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Movie Title" />
+      <DataTableColumnHeader column={column} title="Full Name" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <Badge variant="outline" className={`${row.getIsSelected()?'text-black outline-black':'text-white'} capitalize`}>
-            {row.original.genres}
+          <Badge
+            variant="outline"
+            className={`${
+              row.getIsSelected() ? "text-black outline-black" : "text-white"
+            } capitalize`}
+          >
+            {row.original.active ? "Active" : "Inactive"}
           </Badge>
           <span className="max-w-[500px] truncate font-medium">
             {row.getValue("title")}
@@ -62,7 +67,7 @@ export const columns: ColumnDef<Task>[] = [
   {
     accessorKey: "views",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Views" />
+      <DataTableColumnHeader column={column} title="Movies Watched" />
     ),
     cell: ({ row }) => {
       return (
@@ -105,6 +110,6 @@ export const columns: ColumnDef<Task>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
+    cell: ({ row }) => <DataTableRowActions row={row} tab='user' />,
   },
 ];

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 
-import { columns } from "@/components/task/columns";
+import { columns } from "@/components/task/columns/movies";
 import { DataTable } from "@/components/task/data-table";
 import { TabsContent } from "@/components/ui/tabs";
 import { tasks } from "@/components/task/data/data";

@@ -24,6 +24,30 @@ export const tasks = [
   },
 ];
 
+export const userTasks = [
+  {
+    id: "1",
+    title: "Taylow Swift",
+    active: true,
+    views: "2.3M",
+    compareStatus: "increase",
+  },
+  {
+    id: "2",
+    title: "Harry Styles",
+    active: false,
+    views: "2.1M",
+    compareStatus: "decrease",
+  },
+  {
+    id: "3",
+    title: "Lana Del Rey",
+    active: true,
+    views: "1.5M",
+    compareStatus: "same",
+  },
+];
+
 export const compareStatus = [
   {
     value: "increase",

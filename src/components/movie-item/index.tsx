@@ -4,14 +4,9 @@ import { motion } from "framer-motion";
 import PlainButton from "../button/plain-button";
 import TextButton from "../button/text-button";
 import { useState } from "react";
+import { MovieItemProps, movieSize } from "./constants";
 
-const movieSize = {
-  sm: "w-56 h-36",
-  md: "w-64 h-40",
-  lg: "w-96 h-52",
-};
-
-export default function MovieItem({ size }: { size: string }) {
+export default function MovieItem({ size, title, description, imageUrl }: MovieItemProps) {
   const [isAdded, setIsAdded] = useState(false);
   const { sm, md, lg } = movieSize;
   const itemSize = size == "sm" ? sm : size == "md" ? md : lg;
@@ -33,7 +28,7 @@ export default function MovieItem({ size }: { size: string }) {
     >
       <div className="absolute top-0 left-0 right-0 bottom-0 rounded-xl overflow-hidden">
         <Image
-          src="https://images.thedirect.com/media/article_full/spider-man-no-way-home-poster-doc-ock.jpg"
+          src={imageUrl}
           alt=""
           fill
         />
@@ -47,7 +42,7 @@ export default function MovieItem({ size }: { size: string }) {
           <PlainButton icon={Play} fill="black" background="white" />
         )}
         <div className="flex-1 leading-3">
-          <p className="text-sm text-white font-semibold">Black Panther</p>
+          <p className="text-sm text-white font-semibold">{title}</p>
           {size == "md" ? (
             <span className="text-gray-300 text-xs">2hrs ago</span>
           ) : size == "sm" ? (

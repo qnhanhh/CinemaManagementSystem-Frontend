@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  async redirects(){
+  async redirects() {
     return [
       {
         source: '/',
@@ -9,18 +9,18 @@ const nextConfig = {
       },
     ]
   },
-    images: {
-        remotePatterns: [
-          {
-            protocol: 'https',
-            hostname: 'images.thedirect.com',
-          },
-          {
-            protocol: 'https',
-            hostname: 'mir-s3-cdn-cf.behance.net',
-          },
-        ],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'image.tmdb.org',
       },
+      {
+        protocol: 'https',
+        hostname: 'mir-s3-cdn-cf.behance.net',
+      },
+    ],
+  },
 }
 
 module.exports = nextConfig

@@ -1,8 +1,5 @@
 export interface GenericResponse {
     id: string
-    isSuccess: boolean
-    message: string
-    errors: string[]
 }
 
 export interface MovieResponse extends GenericResponse {
@@ -10,3 +7,5 @@ export interface MovieResponse extends GenericResponse {
     description?: string
     imageUrl?: string
 }
+
+

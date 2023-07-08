@@ -15,10 +15,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { useMutation } from "@tanstack/react-query";
+import { loginUser } from "@/api/auth";
+import { useRouter } from "next/router";
 
 const formSchema = z.object({
-  username: z.string().min(3, {
-    message: "Username must be at least 3 characters long",
+  email: z.string().email({
+    message: "Please enter a valid email address",
   }),
   password: z.string().min(8, {
     message: "Password must be at least 8 characters long",
@@ -26,16 +29,30 @@ const formSchema = z.object({
 });
 
 export default function Login() {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      email: "",
       password: "",
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const { mutate: login } = useMutation(
+    (data: z.infer<typeof formSchema>) => loginUser(data),
+    {
+      onSuccess: () => {
+        router.push("/dashboard");
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
+
+  const onSubmit = (data: z.infer<typeof formSchema>) => {
+    login(data);
   };
 
   return (
@@ -51,14 +68,14 @@ export default function Login() {
           >
             <FormField
               control={form.control}
-              name="username"
+              name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-white">Username</FormLabel>
+                  <FormLabel className="text-white">Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="Username" {...field} required />
+                    <Input placeholder="Email" {...field} required />
                   </FormControl>
-                  <FormDescription>Please enter your username.</FormDescription>
+                  <FormDescription>Please enter your email.</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -85,7 +102,12 @@ export default function Login() {
             </Button>
             <p className="text-white">
               Are you new here? &nbsp;
-              <Link href="./register" className="text-blue-500 motion-safe:animate-pulse">Register now</Link>
+              <Link
+                href="./register"
+                className="text-blue-500 motion-safe:animate-pulse"
+              >
+                Register now
+              </Link>
             </p>
           </form>
         </Form>

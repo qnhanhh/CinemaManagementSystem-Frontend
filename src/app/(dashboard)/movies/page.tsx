@@ -7,7 +7,7 @@ import { getMovies } from "@/api/movie";
 
 export default function Movies() {
   const { data } = useQuery({
-    queryKey: ["movies"],
+    queryKey: ["getAllMovies"],
     queryFn: getMovies,
   });
 

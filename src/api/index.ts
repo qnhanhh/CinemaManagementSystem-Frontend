@@ -1,9 +1,22 @@
 import axios from 'axios'
 
-const baseUrl = 'http://localhost:7106'
+axios.defaults.baseURL = 'http://localhost:7106'
+axios.defaults.headers.common['Content-Type'] = 'application/json'
 
-export const axiosApi = axios.create({
-    baseURL: baseUrl,
-})
+const config = {
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${localStorage.getItem('access_token')}`
+  }
+}
 
-axiosApi.defaults.headers.common['Content-Type'] = 'application/json'
+export const apiPostCall = async (url: string, data?: unknown) => {
+  const response = await axios.post(url, data)
+  return response
+}
+
+export const apiGetCall = async (url: string) => {
+  const response = axios.get(url, config)
+
+  return response
+}

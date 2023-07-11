@@ -17,41 +17,36 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "@/api/auth";
-import { useRouter } from "next/router";
-
-const formSchema = z.object({
-  email: z.string().email({
-    message: "Please enter a valid email address",
-  }),
-  password: z.string().min(8, {
-    message: "Password must be at least 8 characters long",
-  }),
-});
+import { useRouter } from "next/navigation";
+import { Toaster } from "@/components/ui/toaster";
+import { useToast } from "@/components/ui/use-toast";
+import { loginFormSchema } from "@/types/schema";
+import { LoginRequest } from "@/types";
 
 export default function Login() {
   const router = useRouter();
+  const { toast } = useToast();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
+  const form = useForm<z.infer<LoginRequest>>({
+    resolver: zodResolver(loginFormSchema),
   });
 
   const { mutate: login } = useMutation(
-    (data: z.infer<typeof formSchema>) => loginUser(data),
+    (data: z.infer<LoginRequest>) => loginUser(data),
     {
       onSuccess: () => {
         router.push("/dashboard");
       },
-      onError: (error) => {
-        console.log(error);
+      onError: (err: Error) => {
+        toast({
+          title: "Oh no something is wrong!",
+          description: err.message,
+        });
       },
     }
   );
 
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
+  const onSubmit = (data: z.infer<LoginRequest>) => {
     login(data);
   };
 
@@ -87,7 +82,12 @@ export default function Login() {
                 <FormItem>
                   <FormLabel className="text-white">Password</FormLabel>
                   <FormControl>
-                    <Input placeholder="Password" {...field} required />
+                    <Input
+                      type="password"
+                      placeholder="Password"
+                      {...field}
+                      required
+                    />
                   </FormControl>
                   <FormDescription>Please enter your password.</FormDescription>
                   <FormMessage />
@@ -111,6 +111,7 @@ export default function Login() {
             </p>
           </form>
         </Form>
+        <Toaster />
       </div>
     </div>
   );

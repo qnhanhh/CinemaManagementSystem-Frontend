@@ -1,14 +1,13 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import {Eye} from 'lucide-react'
-import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-
-import { compareStatus } from "../data/data";
-import { MovieType } from "../data/schema";
+import Image from "next/image";
 import { DataTableColumnHeader } from "../data-table-column-header";
-import { DataTableRowActions } from "../data-table-row-actions";
+import { ImgBaseURL } from "@/utils/constants";
+import { MovieType } from "@/types";
+import { activeStatus } from "../data/data";
+import DataTableRowActions from "../data-table-row-actions/detail-dialog";
 
 export const columns: ColumnDef<MovieType>[] = [
   {
@@ -37,7 +36,7 @@ export const columns: ColumnDef<MovieType>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Movie ID" />
     ),
-    cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
+    cell: ({ row }) => <div className="w-[80px]">{row.original.id}</div>,
     enableSorting: false,
     enableHiding: false,
   },
@@ -49,26 +48,22 @@ export const columns: ColumnDef<MovieType>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <Badge variant="outline" className={`${row.getIsSelected()?'text-black outline-black':'text-white'} capitalize`}>
-            {row.original.genres}
-          </Badge>
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("title")}
+            {row.original.title}
           </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "views",
+    accessorKey: "imageUrl",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Views" />
+      <DataTableColumnHeader column={column} title="Image" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex w-[100px] gap-2 items-center">
-          <Eye size={18} />
-          <span>{row.original.views}</span>
+          <Image src={`${ImgBaseURL}${row.original.imageUrl}`} alt="" />
         </div>
       );
     },
@@ -77,23 +72,43 @@ export const columns: ColumnDef<MovieType>[] = [
     },
   },
   {
-    accessorKey: "compareStatus",
+    accessorKey: "releaseDate",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Compare Status" />
+      <DataTableColumnHeader column={column} title="Release Date" />
     ),
     cell: ({ row }) => {
-      const status = compareStatus.find(
-        (status) => status.value === row.getValue("compareStatus")
+      return (
+        <div className="flex items-center">
+          <span>{row.original.releaseDate}</span>
+        </div>
       );
-
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+  },
+  {
+    accessorKey: "status",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Trạng thái" />
+    ),
+    cell: ({ row }) => {
+      const status = activeStatus.find(
+        (item) => item.value === row.original.status
+      );
       if (!status) {
         return null;
       }
-
+      const statusColor =
+        status.value.toLowerCase() == "active"
+          ? "text-green-800"
+          : "text-red-800";
       return (
         <div className="flex items-center">
           {status.icon && (
-            <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
+            <status.icon
+              className={`mr-2 h-4 w-4 text-muted-foreground ${statusColor}`}
+            />
           )}
           <span>{status.label}</span>
         </div>
@@ -102,9 +117,10 @@ export const columns: ColumnDef<MovieType>[] = [
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
     },
+    enableSorting: false,
   },
   {
     id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} tab='movie' />,
+    cell: ({ row }) => <DataTableRowActions row={row} tab="movie" />,
   },
 ];

@@ -4,9 +4,11 @@ import MovieItem from "@/components/movie-item";
 import Filter from "./filter";
 import { useQuery } from "@tanstack/react-query";
 import { getMovies } from "@/api/movie";
+import { ImgBaseURL } from "@/utils/constants";
+import { MovieType } from "@/types";
 
 export default function Movies() {
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["getAllMovies"],
     queryFn: getMovies,
   });
@@ -15,13 +17,13 @@ export default function Movies() {
     <div>
       <p className="text-white text-2xl font-semibold pl-6 mb-6">All movies</p>
       <div className="flex flex-wrap gap-6 justify-center">
-        {data?.map((movie) => (
+        {isLoading && <div>Loading...</div>}
+        {data?.map((movie:MovieType) => (
           <MovieItem
             size="md"
             key={movie.id}
             title={movie.title}
-            description={movie.description}
-            imageUrl={`https://image.tmdb.org/t/p/original${movie.imageUrl}`}
+            imageUrl={`${ImgBaseURL}${movie.imageUrl}`}
           />
         ))}
       </div>

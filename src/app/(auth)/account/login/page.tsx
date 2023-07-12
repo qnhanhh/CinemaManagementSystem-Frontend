@@ -1,6 +1,5 @@
 "use client";
 
-import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -27,12 +26,12 @@ export default function Login() {
   const router = useRouter();
   const { toast } = useToast();
 
-  const form = useForm<z.infer<LoginRequest>>({
+  const form = useForm<LoginRequest>({
     resolver: zodResolver(loginFormSchema),
   });
 
   const { mutate: login } = useMutation(
-    (data: z.infer<LoginRequest>) => loginUser(data),
+    (data: LoginRequest) => loginUser(data),
     {
       onSuccess: () => {
         router.push("/dashboard");
@@ -46,7 +45,7 @@ export default function Login() {
     }
   );
 
-  const onSubmit = (data: z.infer<LoginRequest>) => {
+  const onSubmit = (data: LoginRequest) => {
     login(data);
   };
 

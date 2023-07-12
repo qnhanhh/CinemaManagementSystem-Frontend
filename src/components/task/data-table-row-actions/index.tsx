@@ -1,70 +1,35 @@
-"use client";
-
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { Row } from "@tanstack/react-table";
-import Dropdown from "./dropdown";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import GenreDropdown from "@/components/genre-dropdown";
-import { Switch } from "@/components/ui/switch";
-import { useState } from "react";
+import { Newspaper, MoreHorizontal, Edit } from "lucide-react";
+import { DialogTrigger } from "@/components/ui/dialog";
 
-interface DataTableRowActionsProps<TData> {
-  row: Row<TData>;
-  tab: String;
-}
-
-export function DataTableRowActions<TData>({
-  row,
-  tab,
-}: DataTableRowActionsProps<TData>) {
+export default function Dropdown() {
   return (
-    <Dialog>
-      <Dropdown />
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Edit {tab}</DialogTitle>
-          <DialogDescription>
-            Make changes to your {tab} here. Click save when you are done.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="grid gap-4 py-4">
-          {tab === "movie" ? (
-            <>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="title" className="text-right">
-                  Movie Title
-                </Label>
-                <Input id="title" value="Pedro Duarte" className="col-span-3" />
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="genres" className="text-right">
-                  Genres
-                </Label>
-                <GenreDropdown />
-              </div>
-            </>
-          ) : (
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="status" className="text-right">
-                User Status
-              </Label>
-              <Switch id="status" />
-            </div>
-          )}
-        </div>
-        <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="ghost"
+          className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
+        >
+          <MoreHorizontal className="h-4 w-4" />
+          <span className="sr-only">Open menu</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-[160px]">
+        <DialogTrigger asChild>
+          <DropdownMenuItem>
+            <Newspaper className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
+            Details
+          </DropdownMenuItem>
+        </DialogTrigger>
+        <DropdownMenuSeparator />
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

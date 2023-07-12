@@ -6,7 +6,7 @@ import TextButton from "../button/text-button";
 import { useState } from "react";
 import { MovieItemProps, movieSize } from "./constants";
 
-export default function MovieItem({ size, title, description, imageUrl }: MovieItemProps) {
+export default function MovieItem({ size, title, imageUrl }: MovieItemProps) {
   const [isAdded, setIsAdded] = useState(false);
   const { sm, md, lg } = movieSize;
   const itemSize = size == "sm" ? sm : size == "md" ? md : lg;
@@ -31,6 +31,7 @@ export default function MovieItem({ size, title, description, imageUrl }: MovieI
           src={imageUrl}
           alt=""
           fill
+          sizes="100%"
         />
       </div>
       <div

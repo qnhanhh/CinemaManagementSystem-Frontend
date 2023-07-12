@@ -1,6 +1,5 @@
 "use client";
 
-import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -26,12 +25,12 @@ export default function Login() {
   const router = useRouter();
   const { toast } = useToast();
 
-  const form = useForm<z.infer<RegisterRequest>>({
+  const form = useForm<RegisterRequest>({
     resolver: zodResolver(registerFormSchema),
   });
 
   const { mutate: register } = useMutation(
-    (data: z.infer<RegisterRequest>) => registerUser(data),
+    (data: RegisterRequest) => registerUser(data),
     {
       onSuccess: (res) => {
         console.log("register success", res);
@@ -46,7 +45,7 @@ export default function Login() {
     }
   );
 
-  const onSubmit = (values: z.infer<RegisterRequest>) => {
+  const onSubmit = (values: RegisterRequest) => {
     register(values);
   };
 

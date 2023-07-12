@@ -21,3 +21,14 @@ export const registerFormSchema = z.object({
         message: "Password must be at least 2 characters long",
     }),
 });
+
+export const movieSchema=z.object({
+    id:z.string().optional(),
+    title: z.string(),
+    description: z.string(),
+    imageUrl:z.string().startsWith('/'),
+    backDropUrl:z.string().startsWith('/'),
+    ageRequired: z.number().min(0).max(18),
+    releaseDate: z.string().datetime(),
+    status: z.string()
+})

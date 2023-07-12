@@ -4,12 +4,30 @@ import { motion } from "framer-motion";
 import PlainButton from "../button/plain-button";
 import TextButton from "../button/text-button";
 import { useState } from "react";
-import { MovieItemProps, movieSize } from "./constants";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { MovieType } from "@/types";
+import { ImgBaseURL, movieSize } from "@/utils/constants";
+import { Badge } from "@/components/ui/badge";
 
-export default function MovieItem({ size, title, imageUrl }: MovieItemProps) {
+export default function MovieItem({
+  size,
+  props,
+}: {
+  size: string;
+  props: MovieType;
+}) {
   const [isAdded, setIsAdded] = useState(false);
   const { sm, md, lg } = movieSize;
   const itemSize = size == "sm" ? sm : size == "md" ? md : lg;
+
+  const getYear = (date: string) => {
+    return date.split("-")[0];
+  };
 
   const toggleAdd = () => {
     setIsAdded(!isAdded);
@@ -26,9 +44,12 @@ export default function MovieItem({ size, title, imageUrl }: MovieItemProps) {
       transition={{ type: "tween", duration: 0.2, ease: "easeInOut" }}
       className={`relative ${itemSize} rounded-xl group`}
     >
+      <div className="absolute top-1 right-1 z-10 group-hover:hidden">
+        <Badge className="px-2 tracking-widest">{props.ageRequired}+</Badge>
+      </div>
       <div className="absolute top-0 left-0 right-0 bottom-0 rounded-xl overflow-hidden">
         <Image
-          src={imageUrl}
+          src={`${ImgBaseURL}${props.imageUrl}`}
           alt=""
           fill
           sizes="100%"
@@ -43,16 +64,21 @@ export default function MovieItem({ size, title, imageUrl }: MovieItemProps) {
           <PlainButton icon={Play} fill="black" background="white" />
         )}
         <div className="flex-1 leading-3">
-          <p className="text-sm text-white font-semibold">{title}</p>
-          {size == "md" ? (
-            <span className="text-gray-300 text-xs">2hrs ago</span>
-          ) : size == "sm" ? (
-            <span className="text-gray-300 text-xs">2018</span>
-          ) : (
-            <span className="text-gray-300 text-xs">
-              Adventure / Sci-fi / Action
-            </span>
-          )}
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger className="text-left">
+                <p className="text-sm text-white font-semibold line-clamp-1">
+                  {props.title}
+                </p>
+                <span className="text-gray-300 text-xs">
+                  {getYear(props.releaseDate)}
+                </span>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{props.title}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
         {size == "sm" ? (
           <div className="text-white text-xs flex gap-1">

@@ -22,8 +22,7 @@ export default function Movies() {
           <MovieItem
             size="md"
             key={movie.id}
-            title={movie.title}
-            imageUrl={`${ImgBaseURL}${movie.imageUrl}`}
+            props={movie}
           />
         ))}
       </div>

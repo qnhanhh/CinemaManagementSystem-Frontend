@@ -49,7 +49,7 @@ export default function MovieItem({
       </div>
       <div className="absolute top-0 left-0 right-0 bottom-0 rounded-xl overflow-hidden">
         <Image
-          src={`${ImgBaseURL}${props.imageUrl}`}
+          src={`${ImgBaseURL}${props.backDropUrl}`}
           alt=""
           fill
           sizes="100%"

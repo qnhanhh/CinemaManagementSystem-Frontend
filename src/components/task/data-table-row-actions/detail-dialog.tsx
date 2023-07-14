@@ -9,8 +9,12 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Row } from "@tanstack/react-table";
 import { MovieType } from "@/types";
+import { Textarea } from "@/components/ui/textarea";
+import TextButton from "@/components/button/text-button";
+import { Folder, Pen } from "lucide-react";
+import { useState } from "react";
 
-interface DataTableRowActionsProps<UserType> {
+interface DataTableRowActionsProps<MovieType> {
   row: Row<MovieType>;
   tab: string;
 }
@@ -18,6 +22,12 @@ interface DataTableRowActionsProps<UserType> {
 export default function DataTableRowActions({
   row,
 }: DataTableRowActionsProps<MovieType>) {
+  const [isAble, setIsAble] = useState<boolean>(false);
+
+  const toggleEnable = () => {
+    setIsAble(!isAble);
+  };
+
   return (
     <Dialog>
       <Dropdown />
@@ -33,14 +43,14 @@ export default function DataTableRowActions({
             <Input
               disabled
               id="id"
-              value={row.getValue("id")}
+              value={row.original.id}
               className="col-span-3"
             />
             <Label htmlFor="title" className="text-right">
               Title
             </Label>
             <Input
-              disabled
+              disabled={!isAble}
               id="title"
               value={row.original.title}
               className="col-span-3"
@@ -48,35 +58,17 @@ export default function DataTableRowActions({
             <Label htmlFor="description" className="text-right">
               Description
             </Label>
-            <Input
-              disabled
+            <Textarea
+              disabled={!isAble}
               id="description"
               value={row.original.description}
-              className="col-span-3"
-            />
-            <Label htmlFor="imageUrl" className="text-right">
-              Image URL
-            </Label>
-            <Input
-              disabled
-              id="imageUrl"
-              value={row.original.imageUrl}
-              className="col-span-3"
-            />
-            <Label htmlFor="backDropUrl" className="text-right">
-              Backdrop URL
-            </Label>
-            <Input
-              disabled
-              id="backDropUrl"
-              value={row.original.backDropUrl}
               className="col-span-3"
             />
             <Label htmlFor="ageRequired" className="text-right">
               Age required
             </Label>
             <Input
-              disabled
+              disabled={!isAble}
               id="ageRequired"
               value={row.original.ageRequired}
               className="col-span-3"
@@ -85,21 +77,28 @@ export default function DataTableRowActions({
               Release date
             </Label>
             <Input
-              disabled
+              disabled={!isAble}
               id="releaseDate"
-              value={row.original.releaseDate}
+              value={row.original.releaseDate.split("T")[0]}
               className="col-span-3"
             />
             <Label htmlFor="status" className="text-right">
               Status
             </Label>
             <Input
-              disabled
+              disabled={!isAble}
               id="status"
               value={row.original.status}
               className="col-span-3"
             />
           </div>
+        </div>
+        <div className="ml-auto" onClick={toggleEnable}>
+          {isAble ? (
+            <TextButton text="Save" icon={Folder} />
+          ) : (
+            <TextButton text="Edit" icon={Pen} />
+          )}
         </div>
       </DialogContent>
     </Dialog>

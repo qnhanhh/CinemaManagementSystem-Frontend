@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DataTableViewOptions } from "../data-table-view-options";
 
-import { compareStatus } from "../data/data";
 import { DataTableFacetedFilter } from "../data-table-faceted-filter";
+import { activeStatus } from "../data/data";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -30,11 +30,11 @@ export function DataTableToolbar<TData>({
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
-        {table.getColumn("compareStatus") && (
+        {table.getColumn("status") && (
           <DataTableFacetedFilter
-            column={table.getColumn("compareStatus")}
-            title="Compare Status"
-            options={compareStatus}
+            column={table.getColumn("status")}
+            title="Active Status"
+            options={activeStatus}
           />
         )}
         {isFiltered && (

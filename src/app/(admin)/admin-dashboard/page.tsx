@@ -7,7 +7,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CalendarDateRangePicker } from "@/components/admin-dashboard/date-picker";
 import AdminOverview from "./admin-overview";
 import AdminMovies from "./admin-movies";
-import AdminUsers from "./admin-users";
+// import AdminUsers from "./admin-users";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -40,7 +40,7 @@ export default function DashboardPage() {
             </TabsList>
             <AdminOverview />
             <AdminMovies />
-            <AdminUsers />
+            {/* <AdminUsers /> */}
           </Tabs>
         </div>
       </div>

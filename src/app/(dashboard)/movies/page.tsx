@@ -1,7 +1,6 @@
 "use client";
 
 import MovieItem from "@/components/movie-item";
-import Filter from "./filter";
 import { useQuery } from "@tanstack/react-query";
 import { getMovies } from "@/api/movie";
 import { MovieType } from "@/types";
@@ -24,7 +23,6 @@ export default function Movies() {
           </Link>
         ))}
       </div>
-      <Filter />
     </div>
   );
 }

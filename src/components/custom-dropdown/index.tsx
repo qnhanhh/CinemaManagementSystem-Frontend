@@ -14,32 +14,12 @@ import {
   CommandItem,
 } from "@/components/ui/command";
 import { Button } from "@/components/ui/button";
+import { activeStatus } from "../task/data/data";
 
-const frameworks = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-];
-export default function GenreDropdown() {
+export default function CustomDropdown({ initValue }: { initValue?: string }) {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(initValue) || "";
+  console.log("value", value);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -48,34 +28,32 @@ export default function GenreDropdown() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="col-span-3 justify-between"
+          className="col-span-3 justify-between capitalize"
         >
-          {value
-            ? frameworks.find((framework) => framework.value === value)?.label
-            : "Select genre..."}
+          {value ? value : "Select status..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="col-span-3 p-0">
         <Command>
-          <CommandInput placeholder="Search genre..." />
-          <CommandEmpty>No genre found.</CommandEmpty>
+          <CommandInput placeholder="Search status..." />
+          <CommandEmpty>No status found.</CommandEmpty>
           <CommandGroup>
-            {frameworks.map((framework) => (
+            {activeStatus.map((status) => (
               <CommandItem
-                key={framework.value}
+                key={status.value}
                 onSelect={(currentValue) => {
-                  setValue(currentValue === value ? "" : currentValue);
+                  setValue(currentValue == value ? "" : currentValue);
                   setOpen(false);
                 }}
               >
                 <Check
                   className={cn(
                     "mr-2 h-4 w-4",
-                    value === framework.value ? "opacity-100" : "opacity-0"
+                    value == status.value ? "opacity-100" : "opacity-0"
                   )}
                 />
-                {framework.label}
+                {status.label}
               </CommandItem>
             ))}
           </CommandGroup>

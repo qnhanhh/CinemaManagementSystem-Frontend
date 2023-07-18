@@ -29,6 +29,6 @@ export const movieSchema=z.object({
     imageUrl:z.string().startsWith('/'),
     backDropUrl:z.string().startsWith('/'),
     ageRequired: z.number().min(0).max(18),
-    releaseDate: z.string().datetime(),
+    releaseDate: z.date().min(new Date(1900,1,1)).max(new Date()),
     status: z.string()
 })

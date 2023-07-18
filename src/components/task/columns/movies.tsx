@@ -38,7 +38,7 @@ export const columns: ColumnDef<MovieType>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex items-center">
-          <span>{row.original.releaseDate}</span>
+          <span>{row.original.releaseDate.toString().split("T")[0]}</span>
         </div>
       );
     },

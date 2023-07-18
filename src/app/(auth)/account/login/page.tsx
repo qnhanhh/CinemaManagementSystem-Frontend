@@ -21,6 +21,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
 import { loginFormSchema } from "@/types/schema";
 import { LoginRequest } from "@/types";
+import { Loader2Icon } from "lucide-react";
+import { AxiosError } from "axios";
 
 export default function Login() {
   const router = useRouter();
@@ -28,18 +30,35 @@ export default function Login() {
 
   const form = useForm<LoginRequest>({
     resolver: zodResolver(loginFormSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
 
-  const { mutate: login } = useMutation(
+  const { mutate: login, isLoading } = useMutation(
     (data: LoginRequest) => loginUser(data),
     {
-      onSuccess: () => {
-        router.push("/dashboard");
+      onSuccess: (res) => {
+        localStorage.clear();
+        localStorage.setItem("token", res.token);
+        localStorage.setItem("user-id", res.id);
+        router.push("/home");
       },
-      onError: (err: Error) => {
+      onError: (err: any) => {
+        let errMessage = "";
+        if (err.response) {
+          errMessage = err.response.data["ErrorMessage"];
+        } else if (err.request) {
+          errMessage = err.request["responseText"];
+        } else {
+          console.log("err", err.message);
+          errMessage = "Please try again!";
+        }
+        console.log(err.config);
         toast({
           title: "Oh no something is wrong!",
-          description: err.message,
+          description: errMessage,
         });
       },
     }
@@ -67,7 +86,7 @@ export default function Login() {
                 <FormItem>
                   <FormLabel className="text-white">Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="Email" {...field} required />
+                    <Input placeholder="Email" {...field} />
                   </FormControl>
                   <FormDescription>Please enter your email.</FormDescription>
                   <FormMessage />
@@ -81,12 +100,7 @@ export default function Login() {
                 <FormItem>
                   <FormLabel className="text-white">Password</FormLabel>
                   <FormControl>
-                    <Input
-                      type="password"
-                      placeholder="Password"
-                      {...field}
-                      required
-                    />
+                    <Input type="password" placeholder="Password" {...field} />
                   </FormControl>
                   <FormDescription>Please enter your password.</FormDescription>
                   <FormMessage />
@@ -96,7 +110,11 @@ export default function Login() {
             <Button
               className="bg-[#F36F45] hover:bg-[#e63f0c] hover:text-white text-black"
               type="submit"
+              disabled={isLoading}
             >
+              {isLoading && (
+                <Loader2Icon className="mr-2 h-4 w-4 animate-spin" />
+              )}
               Login
             </Button>
             <p className="text-white">
@@ -110,8 +128,8 @@ export default function Login() {
             </p>
           </form>
         </Form>
-        <Toaster />
       </div>
+      <Toaster />
     </div>
   );
 }

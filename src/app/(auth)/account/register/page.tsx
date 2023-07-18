@@ -27,6 +27,14 @@ export default function Login() {
 
   const form = useForm<RegisterRequest>({
     resolver: zodResolver(registerFormSchema),
+    defaultValues: {
+      firstName: "",
+      middleName: "",
+      lastName: "",
+      username: "",
+      email: "",
+      password: ""
+    },
   });
 
   const { mutate: register } = useMutation(
@@ -34,12 +42,22 @@ export default function Login() {
     {
       onSuccess: (res) => {
         console.log("register success", res);
-        router.push("/dashboard");
+        // router.push("/home");
       },
-      onError: (err: Error) => {
+      onError: (err: any) => {
+        let errMessage = "";
+        if (err.response) {
+          errMessage = err.response.data["ErrorMessage"];
+        } else if (err.request) {
+          errMessage = err.request["responseText"];
+        } else {
+          console.log("err", err.message);
+          errMessage = "Please try again!";
+        }
+        console.log(err.config);
         toast({
           title: "Oh no something is wrong!",
-          description: err.message,
+          description: errMessage,
         });
       },
     }
@@ -67,7 +85,7 @@ export default function Login() {
                 <FormItem>
                   <FormLabel className="text-white">First name</FormLabel>
                   <FormControl>
-                    <Input placeholder="First name" {...field} required />
+                    <Input placeholder="First name" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -80,7 +98,7 @@ export default function Login() {
                 <FormItem>
                   <FormLabel className="text-white">Middle name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Middle name" {...field} required />
+                    <Input placeholder="Middle name" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -93,7 +111,7 @@ export default function Login() {
                 <FormItem>
                   <FormLabel className="text-white">Last name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Last name" {...field} required />
+                    <Input placeholder="Last name" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -106,7 +124,7 @@ export default function Login() {
                 <FormItem>
                   <FormLabel className="text-white">Username</FormLabel>
                   <FormControl>
-                    <Input placeholder="Username" {...field} required />
+                    <Input placeholder="Username" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -119,7 +137,7 @@ export default function Login() {
                 <FormItem>
                   <FormLabel className="text-white">Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="Email" {...field} required />
+                    <Input placeholder="Email" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -136,7 +154,7 @@ export default function Login() {
                       type="password"
                       placeholder="Password"
                       {...field}
-                      required
+                    
                     />
                   </FormControl>
                   <FormMessage />
@@ -160,8 +178,8 @@ export default function Login() {
             </p>
           </form>
         </Form>
-        <Toaster />
       </div>
+      <Toaster />
     </div>
   );
 }

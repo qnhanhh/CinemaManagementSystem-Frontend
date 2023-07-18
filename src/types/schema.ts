@@ -4,8 +4,8 @@ export const loginFormSchema = z.object({
     email: z.string().email({
         message: "Please enter a valid email address",
     }),
-    password: z.string().min(2, {
-        message: "Password must be at least 2 characters long",
+    password: z.string().min(10, {
+        message: "Password must be at least 10 characters long",
     }),
 });
 
@@ -17,8 +17,8 @@ export const registerFormSchema = z.object({
     email: z.string().email({
         message: "Please enter a valid email address",
     }),
-    password: z.string().min(2, {
-        message: "Password must be at least 2 characters long",
+    password: z.string().min(10, {
+        message: "Password must be at least 10 characters long",
     }),
 });
 

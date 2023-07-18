@@ -25,8 +25,8 @@ export default function MovieItem({
   const { sm, md, lg } = movieSize;
   const itemSize = size == "sm" ? sm : size == "md" ? md : lg;
 
-  const getYear = (date: string) => {
-    return date.split("-")[0];
+  const getYear = (date: Date) => {
+    return date.toString().split("-")[0];
   };
 
   const toggleAdd = () => {

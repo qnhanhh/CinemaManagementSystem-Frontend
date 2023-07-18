@@ -5,8 +5,21 @@ import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { ImgBaseURL } from "@/utils/constants";
 import { Badge } from "../ui/badge";
-import { Play, Plus, Quote } from "lucide-react";
+import { ChevronRight, Play, Plus, Quote, Star } from "lucide-react";
 import TextButton from "../button/text-button";
+import { Separator } from "../ui/separator";
+import { Table, TableCell, TableRow } from "@/components/ui/table";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Button } from "../ui/button";
+import Rating from "./rating";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetTrigger,
+} from "../ui/sheet";
+import { ScrollArea } from "../ui/scroll-area";
+import MovieList from "../movie-list";
 
 export default function MovieDetail({ id }: { id: string }) {
   const { data, isLoading, isError } = useQuery({
@@ -40,14 +53,89 @@ export default function MovieDetail({ id }: { id: string }) {
               {data.title}
               <Badge className="ml-2">{data.ageRequired}+</Badge>
             </div>
-            <p className="my-8 mx-auto italic text-lg max-w-2xl">
-              <Quote size={14} className="inline-block mx-3" />
-              {data.description}
-              <Quote size={14} className="inline-block mx-3" />
-            </p>
-            <div className="flex gap-8 justify-center my-4">
-              <TextButton text="Watch now" icon={Play} />
-              <TextButton text="Add to favorites" icon={Plus} />
+            <div className="text-sm text-slate-400 mt-5">
+              Action | Adventure | Sci-Fi | Thriller | Fantasy | Drama | Comedy
+            </div>
+            <div className="flex gap-16 justify-center mt-12">
+              <div className="text-left">
+                <p className="text-xl font-bold">About the film</p>
+                <Table>
+                  <TableRow>
+                    <TableCell>Release Date</TableCell>
+                    <TableCell>
+                      {data.releaseDate.toString().split("T")[0]}
+                    </TableCell>
+                    <Separator />
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Starring</TableCell>
+                    <TableCell>John, Amy, Tom</TableCell>
+                    <Separator />
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Publisher</TableCell>
+                    <TableCell>Walt Disney Pictures</TableCell>
+                  </TableRow>
+                </Table>
+                <p className="my-8 mx-auto italic text-center text-lg max-w-2xl">
+                  <Quote size={14} className="inline-block mx-3" />
+                  {data.description}
+                  <Quote size={14} className="inline-block mx-3" />
+                </p>
+              </div>
+              <div className="text-left">
+                <p className="text-xl font-bold flex gap-1 items-center">
+                  4.9
+                  <Star fill="orange" className="text-orange-400" size={20} />
+                  <span className="text-slate-400 text-sm items-end">/ 5</span>
+                </p>
+                <div className="my-4 flex justify-between items-center">
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className="flex gap-1 items-center text-black"
+                      >
+                        <Plus size={18} />
+                        Write your review
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px]">
+                      <Rating />
+                    </DialogContent>
+                  </Dialog>
+                  <div>
+                    <Sheet>
+                      <SheetTrigger className="flex gap-1 items-center text-blue-700">
+                        Read reviews
+                        <ChevronRight size={18} />
+                      </SheetTrigger>
+                      <SheetContent className="bg-black p-4">
+                        <ScrollArea className="h-full w-full mt-5">
+                          <SheetDescription className="flex flex-col items-center gap-6">
+                            <p>Phim hay</p>
+                            <p>Phim hay</p>
+                            <p>Phim hay</p>
+                            <p>Phim hay</p>
+                            <p>Phim hay</p>
+                          </SheetDescription>
+                        </ScrollArea>
+                      </SheetContent>
+                    </Sheet>
+                  </div>
+                </div>
+                <div className="flex gap-8 justify-center my-6">
+                  <TextButton text="Watch now" icon={Play} />
+                  <TextButton text="Add to favorites" icon={Plus} />
+                </div>
+              </div>
+            </div>
+            <div className="mt-6">
+              <MovieList
+                header="More like this"
+                movieSize="md"
+                direction="row"
+              />
             </div>
           </div>
         </div>

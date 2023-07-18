@@ -1,15 +1,22 @@
 'use client'
 
 import MovieList from "@/components/movie-list";
+import { useQuery } from "@tanstack/react-query";
+import { getGenres } from "@/api/movie";
+import { GenreType } from "@/types";
 
 export default function Genres(){
+    const { data, isLoading, isError } = useQuery({
+        queryKey: ["getAllGenres"],
+        queryFn: getGenres,
+      });
+
     return (
         <div className="px-4">
-            <MovieList header="Romantic" movieSize="lg" direction="row" />
-            <MovieList header="Romantic" movieSize="lg" direction="row" />
-            <MovieList header="Romantic" movieSize="lg" direction="row" />
-            <MovieList header="Romantic" movieSize="lg" direction="row" />
-            <MovieList header="Romantic" movieSize="lg" direction="row" />
+            {isLoading && <div>Loading...</div>}
+            {data?.map((genre:GenreType) => (
+                <MovieList key={genre.id} header={genre.name} movieSize="lg" direction="row" />
+            ))}
         </div>
     )
 }

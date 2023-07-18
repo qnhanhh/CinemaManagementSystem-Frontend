@@ -5,6 +5,11 @@ export const getMovies = async () => {
     return response.data
 }
 
+export const getGenres = async () => {
+    const response = await apiGetCall('/api/Genres')
+    return response.data
+}
+
 export const getMovieById = async (id: string) => {
     const response = await apiGetCall(`/api/Movies/${id}`)
     return response.data

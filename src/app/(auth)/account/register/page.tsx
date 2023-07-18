@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -33,7 +34,7 @@ export default function Login() {
       lastName: "",
       username: "",
       email: "",
-      password: ""
+      password: "",
     },
   });
 
@@ -42,7 +43,7 @@ export default function Login() {
     {
       onSuccess: (res) => {
         console.log("register success", res);
-        // router.push("/home");
+        router.push("/account/login");
       },
       onError: (err: any) => {
         let errMessage = "";
@@ -150,13 +151,12 @@ export default function Login() {
                 <FormItem>
                   <FormLabel className="text-white">Password</FormLabel>
                   <FormControl>
-                    <Input
-                      type="password"
-                      placeholder="Password"
-                      {...field}
-                    
-                    />
+                    <Input placeholder="Password" {...field} />
                   </FormControl>
+                  <FormDescription>
+                    Your password should include uppercase letters, lowercase
+                    letters, digits, and non-alphanumeric characters
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

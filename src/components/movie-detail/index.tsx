@@ -36,10 +36,10 @@ export default function MovieDetail({ id }: { id: string }) {
             fill
           />
           <div className="relative top-full p-4 text-white text-center">
-            <p className="text-4xl font-bold text-center">
+            <div className="text-4xl font-bold text-center">
               {data.title}
               <Badge className="ml-2">{data.ageRequired}+</Badge>
-            </p>
+            </div>
             <p className="my-8 mx-auto italic text-lg max-w-2xl">
               <Quote size={14} className="inline-block mx-3" />
               {data.description}

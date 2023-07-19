@@ -3,7 +3,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -27,16 +26,10 @@ export function CreateDialog() {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Create new movie</DialogTitle>
-          <DialogDescription>
-            Create your new movie here. Click save when you&apos;re done.
-          </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <EditForm />
         </div>
-        <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

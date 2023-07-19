@@ -1,6 +1,6 @@
 "use client";
 
-import { getMovieById } from "@/api/movie";
+import { getMovieById } from "@/api/movies";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { ImgBaseURL } from "@/utils/constants";

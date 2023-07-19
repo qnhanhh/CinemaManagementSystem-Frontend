@@ -4,7 +4,7 @@ import { columns } from "@/components/task/columns/movies";
 import { DataTable } from "@/components/task/data-table";
 import { TabsContent } from "@/components/ui/tabs";
 import { useQuery } from "@tanstack/react-query";
-import { getMovies } from "@/api/movie";
+import { getMovies } from "@/api/movies";
 
 export const metadata: Metadata = {
   title: "Tasks",

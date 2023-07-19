@@ -1,10 +1,7 @@
 "use client";
 
 import { Metadata } from "next";
-import { Download } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CalendarDateRangePicker } from "@/components/admin-dashboard/date-picker";
 import AdminOverview from "./admin-overview";
 import AdminMovies from "./admin-movies";
 // import AdminUsers from "./admin-users";
@@ -23,13 +20,6 @@ export default function DashboardPage() {
             <h2 className="text-3xl text-white font-bold tracking-tight">
               Dashboard
             </h2>
-            <div className="flex items-center space-x-2">
-              <CalendarDateRangePicker />
-              <Button>
-                <Download className="mr-2 h-4 w-4" />
-                Download
-              </Button>
-            </div>
           </div>
           <Tabs defaultValue="movies" className="space-y-4">
             <TabsList>

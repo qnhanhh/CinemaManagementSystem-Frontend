@@ -3,7 +3,7 @@ import MovieItem from "../movie-item";
 import { listType } from "./constant";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import { getMovies } from "@/api/movie";
+import { getMovies } from "@/api/movies";
 import { MovieType } from "@/types";
 
 export default function MovieList({ header, movieSize, direction }: listType) {

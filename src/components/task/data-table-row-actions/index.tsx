@@ -2,11 +2,10 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { Newspaper, MoreHorizontal, Edit } from "lucide-react";
+import { Newspaper, MoreHorizontal } from "lucide-react";
 import { DialogTrigger } from "@/components/ui/dialog";
 
 export default function Dropdown() {
@@ -28,7 +27,6 @@ export default function Dropdown() {
             Details
           </DropdownMenuItem>
         </DialogTrigger>
-        <DropdownMenuSeparator />
       </DropdownMenuContent>
     </DropdownMenu>
   );

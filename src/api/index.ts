@@ -6,17 +6,26 @@ axios.defaults.headers.common['Content-Type'] = 'application/json'
 const config = {
   headers: {
     'Content-Type': 'application/json',
-    // Authorization: `Bearer ${localStorage.getItem('access_token')}`
+    Authorization: `Bearer ${localStorage.getItem('token')}`
   }
 }
 
-export const apiPostCall = async (url: string, data?: unknown) => {
-  const response = await axios.post(url, data)
+export const apiGetCall = async (url: string) => {
+  const response = axios.get(url)
   return response
 }
 
-export const apiGetCall = async (url: string) => {
-  const response = axios.get(url, config)
+export const apiPostCall = async (url: string, data?: unknown) => {
+  const response = await axios.post(url, data, config)
+  return response
+}
 
+export const apiPutCall = async (url: string, data?: unknown) => {
+  const response = await axios.put(url, data, config)
+  return response
+}
+
+export const apiDeleteCall = async (url: string) => {
+  const response = await axios.delete(url, config)
   return response
 }

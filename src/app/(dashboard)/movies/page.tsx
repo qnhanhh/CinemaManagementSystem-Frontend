@@ -2,7 +2,7 @@
 
 import MovieItem from "@/components/movie-item";
 import { useQuery } from "@tanstack/react-query";
-import { getMovies } from "@/api/movie";
+import { getMovies } from "@/api/movies";
 import { MovieType } from "@/types";
 import Link from "next/link";
 

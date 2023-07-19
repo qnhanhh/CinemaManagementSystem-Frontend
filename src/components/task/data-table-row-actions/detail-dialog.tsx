@@ -8,7 +8,7 @@ import Dropdown from ".";
 import { Row } from "@tanstack/react-table";
 import { MovieType } from "@/types";
 import TextButton from "@/components/button/text-button";
-import { Pen } from "lucide-react";
+import { Pen, Trash } from "lucide-react";
 import { useState } from "react";
 import View from "./view";
 import EditForm from "../edit-form";
@@ -37,8 +37,9 @@ export default function DataTableRowActions({
         <div className="grid gap-4 py-4">
           {isEdit ? <EditForm row={row} /> : <View row={row} />}
         </div>
-        <div className="ml-auto" onClick={toggleEdit}>
+        <div className="ml-auto flex gap-3" onClick={toggleEdit}>
           {!isEdit && <TextButton text="Edit" icon={Pen} />}
+          {row.original.status=='Active' && <TextButton text="Delete movie" icon={Trash} />}
         </div>
       </DialogContent>
     </Dialog>

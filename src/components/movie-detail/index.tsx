@@ -86,9 +86,9 @@ export default function MovieDetail({ id }: { id: string }) {
               </div>
               <div className="text-left">
                 <div className="text-xl font-bold flex gap-1 items-center">
-                  9.5
+                  3.5
                   <Star fill="orange" className="text-orange-400" size={20} />
-                  <span className="text-slate-400 text-sm items-end">/ 10</span>
+                  <span className="text-slate-400 text-sm items-end">/ 5</span>
                 </div>
                 <div className="my-4 flex justify-between items-center">
                   <Dialog>

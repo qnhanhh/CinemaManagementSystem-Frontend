@@ -37,3 +37,9 @@ export const genreSchema = z.object({
     id: z.string(),
     name: z.string(),
 })
+
+export const rateSchema = z.object({
+    rating: z.number().min(0).max(5),
+    comment: z.string(),
+})
+

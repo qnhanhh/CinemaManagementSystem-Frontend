@@ -8,7 +8,7 @@ import { Badge } from "../ui/badge";
 import { ChevronRight, Play, Plus, Quote, Star } from "lucide-react";
 import TextButton from "../button/text-button";
 import { Separator } from "../ui/separator";
-import { Table, TableCell, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
 import Rating from "./rating";
@@ -20,6 +20,7 @@ import {
 } from "../ui/sheet";
 import { ScrollArea } from "../ui/scroll-area";
 import MovieList from "../movie-list";
+import Comments from "./comments";
 
 export default function MovieDetail({ id }: { id: string }) {
   const { data, isLoading, isError } = useQuery({
@@ -60,22 +61,22 @@ export default function MovieDetail({ id }: { id: string }) {
               <div className="text-left">
                 <p className="text-xl font-bold">About the film</p>
                 <Table>
-                  <TableRow>
-                    <TableCell>Release Date</TableCell>
-                    <TableCell>
-                      {data.releaseDate.toString().split("T")[0]}
-                    </TableCell>
-                    <Separator />
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>Starring</TableCell>
-                    <TableCell>John, Amy, Tom</TableCell>
-                    <Separator />
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>Publisher</TableCell>
-                    <TableCell>Walt Disney Pictures</TableCell>
-                  </TableRow>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>Release Date</TableCell>
+                      <TableCell>
+                        {data.releaseDate.toString().split("T")[0]}
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Starring</TableCell>
+                      <TableCell>John, Amy, Tom</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Publisher</TableCell>
+                      <TableCell>Walt Disney Pictures</TableCell>
+                    </TableRow>
+                  </TableBody>
                 </Table>
                 <p className="my-8 mx-auto italic text-center text-lg max-w-2xl">
                   <Quote size={14} className="inline-block mx-3" />
@@ -84,11 +85,11 @@ export default function MovieDetail({ id }: { id: string }) {
                 </p>
               </div>
               <div className="text-left">
-                <p className="text-xl font-bold flex gap-1 items-center">
-                  4.9
+                <div className="text-xl font-bold flex gap-1 items-center">
+                  9.5
                   <Star fill="orange" className="text-orange-400" size={20} />
-                  <span className="text-slate-400 text-sm items-end">/ 5</span>
-                </p>
+                  <span className="text-slate-400 text-sm items-end">/ 10</span>
+                </div>
                 <div className="my-4 flex justify-between items-center">
                   <Dialog>
                     <DialogTrigger asChild>
@@ -112,12 +113,8 @@ export default function MovieDetail({ id }: { id: string }) {
                       </SheetTrigger>
                       <SheetContent className="bg-black p-4">
                         <ScrollArea className="h-full w-full mt-5">
-                          <SheetDescription className="flex flex-col items-center gap-6">
-                            <p>Phim hay</p>
-                            <p>Phim hay</p>
-                            <p>Phim hay</p>
-                            <p>Phim hay</p>
-                            <p>Phim hay</p>
+                          <SheetDescription>
+                            <Comments movieId={id} />
                           </SheetDescription>
                         </ScrollArea>
                       </SheetContent>

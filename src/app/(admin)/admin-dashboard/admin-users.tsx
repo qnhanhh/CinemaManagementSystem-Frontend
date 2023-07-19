@@ -1,3 +1,3 @@
-export default async function AdminUsers() {
+export default function AdminUsers() {
   return null;
 }

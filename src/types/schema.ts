@@ -10,10 +10,16 @@ export const loginFormSchema = z.object({
 });
 
 export const registerFormSchema = z.object({
-    firstName: z.string(),
+    firstName: z.string().min(1, {
+        message: "First name is required"
+    }),
     middleName: z.string().optional(),
-    lastName: z.string(),
-    username: z.string(),
+    lastName: z.string().min(1, {
+        message: "Last name is required"
+    }),
+    username: z.string().min(1, {
+        message: "Username is required"
+    }),
     email: z.string().email({
         message: "Please enter a valid email address",
     }),
@@ -24,13 +30,21 @@ export const registerFormSchema = z.object({
 
 export const movieSchema = z.object({
     id: z.string().optional(),
-    title: z.string(),
-    description: z.string(),
-    imageUrl: z.string().startsWith('/'),
-    backDropUrl: z.string().startsWith('/'),
-    ageRequired: z.number().min(0).max(18),
+    title: z.string().min(1, {
+        message: "Movie title is required"
+    }),
+    description: z.string().min(1, {
+        message: "Movie description is required"
+    }),
+    imageUrl: z.string().startsWith('/').optional(),
+    backDropUrl: z.string().startsWith('/').optional(),
+    ageRequired: z.number().min(0, {
+        message: "Age required is required"
+    }),
     releaseDate: z.date().min(new Date(1900, 1, 1)).max(new Date()),
-    status: z.string()
+    status: z.string().min(1, {
+        message: "Movie status is required"
+    })
 })
 
 export const genreSchema = z.object({

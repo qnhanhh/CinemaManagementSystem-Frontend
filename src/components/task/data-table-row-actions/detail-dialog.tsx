@@ -39,7 +39,9 @@ export default function DataTableRowActions({
         </div>
         <div className="ml-auto flex gap-3" onClick={toggleEdit}>
           {!isEdit && <TextButton text="Edit" icon={Pen} />}
-          {row.original.status=='Active' && <TextButton text="Delete movie" icon={Trash} />}
+          {row.original.status == "Inactive" && !isEdit && (
+            <TextButton text="Delete movie" icon={Trash} />
+          )}
         </div>
       </DialogContent>
     </Dialog>

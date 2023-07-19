@@ -7,8 +7,8 @@ export default function Banner() {
     <div>
       <div className="relative rounded-xl w-full h-[300px] p-6 bg-white/50">
         <Image
-          style={{objectFit: "contain"}}
-          className="w-full object-contain rounded-xl"
+          style={{ objectFit: "contain" }}
+          className="w-full object-contain rounded-xl h-auto"
           src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/e2fd9882892035.5d2c3c960586e.jpg"
           alt=""
           fill

@@ -35,7 +35,12 @@ export default function MovieDetail({ id }: { id: string }) {
       <div className="relative w-full h-[400px]">
         <div className="absolute top-0 bottom-0 left-0 right-0 z-10 bg-black/60"></div>
         <Image
-          style={{ objectFit: "cover", objectPosition: "top" }}
+          style={{
+            objectFit: "cover",
+            objectPosition: "top",
+            width: "auto",
+            height: "auto",
+          }}
           src={`${ImgBaseURL}${data.backDropUrl}`}
           alt=""
           fill
@@ -44,6 +49,8 @@ export default function MovieDetail({ id }: { id: string }) {
           <Image
             style={{
               objectFit: "contain",
+              width: "auto",
+              height: "auto",
             }}
             src={`${ImgBaseURL}${data.imageUrl}`}
             alt=""

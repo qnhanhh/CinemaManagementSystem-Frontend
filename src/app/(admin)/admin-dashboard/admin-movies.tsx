@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 // Simulate a database read for tasks.
 
-export default async function AdminMovies() {
+export default function AdminMovies() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["getAllMovies"],
     queryFn: getMovies,

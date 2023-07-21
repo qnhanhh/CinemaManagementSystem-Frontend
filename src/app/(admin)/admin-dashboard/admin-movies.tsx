@@ -5,6 +5,7 @@ import { DataTable } from "@/components/task/data-table";
 import { TabsContent } from "@/components/ui/tabs";
 import { useQuery } from "@tanstack/react-query";
 import { getMovies } from "@/api/movies";
+import StateHandler, { States } from "@/components/state-handler";
 
 export const metadata: Metadata = {
   title: "Tasks",
@@ -21,7 +22,7 @@ export default function AdminMovies() {
 
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <StateHandler state={States.Loading} />;
   }
   
   return (

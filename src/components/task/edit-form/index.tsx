@@ -13,7 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
+import { CalendarIcon, Check, ChevronsUpDown, Loader2Icon } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import {
   Popover,
@@ -31,23 +31,59 @@ import {
   CommandInput,
   CommandItem,
 } from "@/components/ui/command";
+import { editMovie } from "@/api/movies";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "@/components/ui/use-toast";
 
-export default function EditForm({ row }: { row?: Row<MovieType> }) {
+export default function EditForm({ row }: { row: Row<MovieType> }) {
   const form = useForm<MovieType>({
     resolver: zodResolver(movieSchema),
     defaultValues: {
-      title: "",
-      description: "",
-      ageRequired: 14,
-      releaseDate: new Date(),
-      status: "",
+      id: row.original.id,
+      title: row.original.title,
+      description: row.original.description,
+      imageUrl: row.original.imageUrl,
+      backDropUrl: row.original.backDropUrl,
+      ageRequired: row.original.ageRequired,
+      releaseDate: new Date(row.original.releaseDate),
+      status: row.original.status,
     },
   });
 
   const { register } = form;
 
+  const { mutate: update, isLoading } = useMutation(
+    (data: MovieType) => editMovie(data),
+    {
+      onSuccess: (res) => {
+        console.log("res", res);
+        toast({
+          title: "Update movie successfully!",
+          description: `You have just updated the movie: ${row.original.title}`,
+        });
+      },
+      onError: (err: any) => {
+        let errMessage = "";
+        if (err.response) {
+          errMessage = err.response.data["ErrorMessage"];
+        } else if (err.request) {
+          errMessage = err.request["responseText"];
+        } else {
+          console.log("err", err.message);
+          errMessage = "Please try again!";
+        }
+        console.log(err.config);
+        toast({
+          title: "Oh no something is wrong!",
+          description: errMessage,
+        });
+      },
+    }
+  );
+
   const onSubmit = (values: MovieType) => {
-    console.log("form values", values);
+    console.log("values", values);
+    update(values);
   };
 
   return (
@@ -168,7 +204,8 @@ export default function EditForm({ row }: { row?: Row<MovieType> }) {
                         {field.value
                           ? activeStatus.find(
                               (status) =>
-                                status.value.toLowerCase() == field.value
+                                status.value.toLowerCase() ==
+                                field.value.toLowerCase()
                             )?.label
                           : "Select status"}
                         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -191,7 +228,8 @@ export default function EditForm({ row }: { row?: Row<MovieType> }) {
                             <Check
                               className={cn(
                                 "mr-2 h-4 w-4",
-                                status.value.toLowerCase() == field.value
+                                status.value.toLowerCase() ==
+                                  field.value.toLowerCase()
                                   ? "opacity-100"
                                   : "opacity-0"
                               )}
@@ -207,7 +245,8 @@ export default function EditForm({ row }: { row?: Row<MovieType> }) {
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full" disabled={isLoading}>
+            {isLoading && <Loader2Icon className="mr-2 h-4 w-4 animate-spin" />}
             Save changes
           </Button>
         </form>

@@ -36,9 +36,7 @@ export default function MovieItem({
   return (
     <motion.div
       whileHover={{
-        scale: 1.2,
-        marginLeft: "2rem",
-        marginRight: "2rem",
+        scale: 1.3,
         zIndex: 10,
       }}
       transition={{ type: "tween", duration: 0.2, ease: "easeInOut" }}

@@ -4,6 +4,7 @@ import MovieList from "@/components/movie-list";
 import { useQuery } from "@tanstack/react-query";
 import { getGenres } from "@/api/genres";
 import { GenreType } from "@/types";
+import StateHandler, { States } from "@/components/state-handler";
 
 export default function Genres() {
   const { data, isLoading, isError } = useQuery({
@@ -11,10 +12,11 @@ export default function Genres() {
     queryFn: getGenres,
   });
 
+  if (isLoading) return <StateHandler state={States.Loading} />;
+  
   return (
     <div className="px-4">
-      {isLoading && <div>Loading...</div>}
-      {data?.map((genre: GenreType) => (
+      {data.map((genre: GenreType) => (
         <MovieList
           key={genre.id}
           header={genre.name}

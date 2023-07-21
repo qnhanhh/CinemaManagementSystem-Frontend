@@ -22,7 +22,6 @@ import { useToast } from "@/components/ui/use-toast";
 import { loginFormSchema } from "@/types/schema";
 import { LoginRequest } from "@/types";
 import { Loader2Icon } from "lucide-react";
-import { AxiosError } from "axios";
 
 export default function Login() {
   const router = useRouter();

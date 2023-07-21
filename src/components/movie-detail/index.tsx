@@ -7,7 +7,6 @@ import { ImgBaseURL } from "@/utils/constants";
 import { Badge } from "../ui/badge";
 import { ChevronRight, Play, Plus, Quote, Star } from "lucide-react";
 import TextButton from "../button/text-button";
-import { Separator } from "../ui/separator";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
@@ -21,6 +20,7 @@ import {
 import { ScrollArea } from "../ui/scroll-area";
 import MovieList from "../movie-list";
 import Comments from "./comments";
+import StateHandler, { States } from "@/components/state-handler";
 
 export default function MovieDetail({ id }: { id: string }) {
   const { data, isLoading, isError } = useQuery({
@@ -28,7 +28,7 @@ export default function MovieDetail({ id }: { id: string }) {
     queryFn: () => getMovieById(id),
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <StateHandler state={States.Loading} />;
 
   return (
     <div className="w-full px-10">

@@ -28,7 +28,7 @@ export function CreateDialog() {
           <DialogTitle>Create new movie</DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <EditForm />
+          {/* <EditForm row={} /> */}
         </div>
       </DialogContent>
     </Dialog>

@@ -6,6 +6,7 @@ axios.defaults.headers.common['Content-Type'] = 'application/json'
 const config = {
   headers: {
     'Content-Type': 'application/json',
+    // 'Access-Control-Allow-Origin': '*'
     // Authorization: `Bearer ${localStorage.getItem('token')}`
   }
 }

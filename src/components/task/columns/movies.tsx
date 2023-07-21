@@ -22,6 +22,7 @@ export const columns: ColumnDef<MovieType>[] = [
               src={`${ImgBaseURL}${row.original.imageUrl}`}
               width={50}
               height={80}
+              style={{height:'auto', width:'auto'}}
               alt={row.original.title}
             />
             {row.original.title}

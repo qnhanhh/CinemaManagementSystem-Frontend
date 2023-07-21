@@ -23,7 +23,6 @@ export const columns: ColumnDef<MovieType>[] = [
               width={50}
               height={80}
               alt={row.original.title}
-              className="h-auto w-auto"
             />
             {row.original.title}
           </span>

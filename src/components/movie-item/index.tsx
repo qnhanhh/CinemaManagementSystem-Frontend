@@ -53,7 +53,6 @@ export default function MovieItem({
           alt=""
           fill
           sizes="100%"
-          className="w-auto h-auto"
         />
       </div>
       <div

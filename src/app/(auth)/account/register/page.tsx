@@ -22,7 +22,7 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 
-export default function Login() {
+export default function Register() {
   const router = useRouter();
   const { toast } = useToast();
 

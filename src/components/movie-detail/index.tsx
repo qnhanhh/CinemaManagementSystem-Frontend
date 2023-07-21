@@ -38,8 +38,6 @@ export default function MovieDetail({ id }: { id: string }) {
           style={{
             objectFit: "cover",
             objectPosition: "top",
-            width: "auto",
-            height: "auto",
           }}
           src={`${ImgBaseURL}${data.backDropUrl}`}
           alt=""
@@ -49,8 +47,6 @@ export default function MovieDetail({ id }: { id: string }) {
           <Image
             style={{
               objectFit: "contain",
-              width: "auto",
-              height: "auto",
             }}
             src={`${ImgBaseURL}${data.imageUrl}`}
             alt=""

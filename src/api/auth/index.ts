@@ -1,6 +1,5 @@
 import { LoginRequest, RegisterRequest } from "@/types"
 import { apiPostCall } from ".."
-import { z } from "zod"
 
 export const loginUser = async (data: LoginRequest) => {
     const response = await apiPostCall('/api/Account/Login', data)

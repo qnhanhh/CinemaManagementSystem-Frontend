@@ -9,9 +9,19 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LogOut } from "lucide-react";
 import { DialogTrigger } from "@/components/ui/dialog";
-import Link from "next/link";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 export default function Dropdown() {
+  const router = useRouter();
+
+  const logOut = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    Cookies.remove("token");
+    router.push("/home");
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -29,11 +39,11 @@ export default function Dropdown() {
         <DropdownMenuItem>Billing</DropdownMenuItem>
         <DropdownMenuItem>Report</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <Link href="/account/login">
-            <LogOut className="mr-1" />
+        <DropdownMenuItem onClick={logOut}>
+          <div className="flex gap-1 items-center cursor-pointer">
+            <LogOut size={14} className="mr-1" />
             Log out
-          </Link>
+          </div>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

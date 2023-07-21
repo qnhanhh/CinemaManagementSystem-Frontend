@@ -22,6 +22,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { loginFormSchema } from "@/types/schema";
 import { LoginRequest } from "@/types";
 import { Loader2Icon } from "lucide-react";
+import Cookies from "js-cookie";
 
 export default function Login() {
   const router = useRouter();
@@ -42,6 +43,7 @@ export default function Login() {
         localStorage.clear();
         localStorage.setItem("token", res.token);
         localStorage.setItem("user-id", res.id);
+        Cookies.set("token", res.token);
         router.push("/home");
       },
       onError: (err: any) => {
@@ -119,7 +121,7 @@ export default function Login() {
             <p className="text-white">
               Are you new here? &nbsp;
               <Link
-                href="./register"
+                href="./account/register"
                 className="text-blue-500 motion-safe:animate-pulse"
               >
                 Register now

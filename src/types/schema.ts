@@ -76,3 +76,19 @@ export const companySchema = z.object({
     userId: z.string().optional(),
 })
 
+export const userSchema = z.object({
+    firstname: z.string().min(1, {
+        message: "First name is required"
+    }),
+    middleName: z.string().optional(),
+    lastname: z.string().min(1, {
+        message: "Last name is required"
+    }),
+    imageUrl: z.string().optional(),
+    companyId: z.string().optional(),
+    birthDate: z.date().min(new Date(1900, 1, 1)).max(new Date()).optional(),
+    id: z.string().optional(),
+    // password: z.string().regex(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*\W).+$/,
+    //     'Password is not strong enough'
+    // ).min(6, 'Password must be at least 6 characters long'),
+});

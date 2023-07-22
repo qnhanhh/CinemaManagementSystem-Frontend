@@ -22,6 +22,7 @@ export default function Genres() {
           header={genre.name}
           movieSize="lg"
           direction="row"
+          index={0}
         />
       ))}
     </div>

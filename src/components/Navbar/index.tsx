@@ -7,6 +7,7 @@ import { useLoginStore } from "@/store";
 
 export default function Navbar() {
   const isLogin = useLoginStore((state) => state.isLogin);
+  
   console.log("isLogin", isLogin);
 
   return (

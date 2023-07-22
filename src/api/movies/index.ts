@@ -7,7 +7,7 @@ export const getMovies = async () => {
 }
 
 export const getMovieById = async (id: string) => {
-    const response = await apiGetCall(`/api/Movies/${id}`)
+    const response = await apiGetCall(`/api/Movies/Details/${id}`)
     return response.data
 }
 

@@ -3,8 +3,18 @@
 import MovieList from "@/components/movie-list";
 import Banner from "./banner";
 import Trailers from "./trailers";
+import { useLoginStore } from "@/store";
+import { useEffect } from "react";
 
 export default function Home() {
+  const setLogin=useLoginStore((state)=>state.setLogin);
+
+  useEffect(()=>{
+    if(localStorage.getItem('token')){
+      setLogin(true);
+    }
+  }, [])
+
   return (
     <div>
       <Trailers />

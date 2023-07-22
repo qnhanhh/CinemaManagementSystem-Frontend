@@ -41,7 +41,7 @@ export const movieSchema = z.object({
     ageRequired: z.number().min(0, {
         message: "Age required is required"
     }),
-    releaseDate: z.date().min(new Date(1900, 1, 1)).max(new Date()),
+    releaseDate: z.date().min(new Date(1900, 1, 1)),
     status: z.string().min(1, {
         message: "Movie status is required"
     })
@@ -57,5 +57,22 @@ export const rateSchema = z.object({
     comment: z.string().max(300, {
         message: "Comment must be less than 300 characters long"
     }),
+})
+
+export const actorSchema = z.object({
+    name: z.string(),
+    description: z.string(),
+    imageUrl: z.string().startsWith('/').optional(),
+    birthDate: z.date().min(new Date(1900, 1, 1)).max(new Date()),
+    gender: z.string(),
+    id: z.string().optional(),
+})
+
+export const companySchema = z.object({
+    name: z.string(),
+    description: z.string(),
+    imageUrl: z.string().startsWith('/').optional(),
+    id: z.string().optional(),
+    userId: z.string().optional(),
 })
 

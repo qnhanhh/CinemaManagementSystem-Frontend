@@ -19,10 +19,15 @@ import {
 } from "../ui/sheet";
 import { ScrollArea } from "../ui/scroll-area";
 import MovieList from "../movie-list";
-import Comments from "./comments";
 import StateHandler, { States } from "@/components/state-handler";
+import { ActorType, CompanyType, GenreType, RateType } from "@/types";
+import Link from "next/link";
+import CommentItem from "./comment-item";
+import { useLoginStore } from "@/store";
 
 export default function MovieDetail({ id }: { id: string }) {
+  const isLogin = useLoginStore((state) => state.isLogin);
+
   const { data, isLoading, isError } = useQuery({
     queryKey: ["getMovieDetail", id],
     queryFn: () => getMovieById(id),
@@ -58,7 +63,15 @@ export default function MovieDetail({ id }: { id: string }) {
               <Badge className="ml-2">{data.ageRequired}+</Badge>
             </div>
             <div className="text-sm text-slate-400 mt-5">
-              Action | Adventure | Sci-Fi | Thriller | Fantasy | Drama | Comedy
+              {data.genres?.map((item: GenreType) => (
+                <Link
+                  href=""
+                  key={item.id}
+                  className="mr-2 border border-slate-600 p-2 rounded-full"
+                >
+                  {item.name}
+                </Link>
+              ))}
             </div>
             <div className="flex gap-16 justify-center mt-12">
               <div className="text-left">
@@ -73,11 +86,37 @@ export default function MovieDetail({ id }: { id: string }) {
                     </TableRow>
                     <TableRow>
                       <TableCell>Starring</TableCell>
-                      <TableCell>John, Amy, Tom</TableCell>
+                      <TableCell>
+                        {data.actors.length > 0
+                          ? data.actors.map(
+                              (item: ActorType, index: number) => (
+                                <span className="mr-2" key={item.id}>
+                                  {item.name}
+                                  <span>
+                                    {index !== data.actors.length - 1 && ","}
+                                  </span>
+                                </span>
+                              )
+                            )
+                          : "-"}
+                      </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Publisher</TableCell>
-                      <TableCell>Walt Disney Pictures</TableCell>
+                      <TableCell>
+                        {data.companies.length > 0
+                          ? data.companies.map(
+                              (item: CompanyType, index: number) => (
+                                <span className="mr-2" key={item.id}>
+                                  {item.name}
+                                  <span>
+                                    {index !== data.companies.length - 1 && ","}
+                                  </span>
+                                </span>
+                              )
+                            )
+                          : "-"}
+                      </TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
@@ -88,26 +127,34 @@ export default function MovieDetail({ id }: { id: string }) {
                 </p>
               </div>
               <div className="text-left">
-                <div className="text-xl font-bold flex gap-1 items-center">
-                  3.5
-                  <Star fill="orange" className="text-orange-400" size={20} />
-                  <span className="text-slate-400 text-sm items-end">/ 5</span>
-                </div>
+                {data.rates.length > 0 ? (
+                  <div className="text-xl font-bold flex gap-1 items-center">
+                    3.5
+                    <Star fill="orange" className="text-orange-400" size={20} />
+                    <span className="text-slate-400 text-sm items-end">
+                      / 5
+                    </span>
+                  </div>
+                ) : (
+                  "No reviews yet."
+                )}
                 <div className="my-4 flex justify-between items-center">
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button
-                        variant="outline"
-                        className="flex gap-1 items-center text-black"
-                      >
-                        <Plus size={18} />
-                        Write your review
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[425px]">
-                      <Rating />
-                    </DialogContent>
-                  </Dialog>
+                  {isLogin && (
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className="flex gap-1 items-center text-black"
+                        >
+                          <Plus size={18} />
+                          Write your review
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[425px]">
+                        <Rating />
+                      </DialogContent>
+                    </Dialog>
+                  )}
                   <div>
                     <Sheet>
                       <SheetTrigger className="flex gap-1 items-center text-blue-700">
@@ -117,7 +164,17 @@ export default function MovieDetail({ id }: { id: string }) {
                       <SheetContent className="bg-black p-4">
                         <ScrollArea className="h-full w-full mt-5">
                           <SheetDescription>
-                            <Comments movieId={id} />
+                            {data.rates.length > 0
+                              ? data.rates.map(
+                                  (item: RateType, index: number) => (
+                                    <CommentItem
+                                      key={index}
+                                      rating={item.rating}
+                                      comment={item.comment}
+                                    />
+                                  )
+                                )
+                              : "No reviews yet."}
                           </SheetDescription>
                         </ScrollArea>
                       </SheetContent>
@@ -126,7 +183,9 @@ export default function MovieDetail({ id }: { id: string }) {
                 </div>
                 <div className="flex gap-8 justify-center my-6">
                   <TextButton text="Watch now" icon={Play} />
-                  <TextButton text="Add to favorites" icon={Plus} />
+                  {isLogin && (
+                    <TextButton text="Add to favorites" icon={Plus} />
+                  )}
                 </div>
               </div>
             </div>
@@ -135,6 +194,7 @@ export default function MovieDetail({ id }: { id: string }) {
                 header="More like this"
                 movieSize="md"
                 direction="row"
+                index={0}
               />
             </div>
           </div>

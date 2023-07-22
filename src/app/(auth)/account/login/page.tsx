@@ -121,7 +121,8 @@ export default function Login() {
             <p className="text-white">
               Are you new here? &nbsp;
               <Link
-                href="./account/register"
+                href="/account/register"
+                replace={true}
                 className="text-blue-500 motion-safe:animate-pulse"
               >
                 Register now

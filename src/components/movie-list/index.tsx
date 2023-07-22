@@ -7,17 +7,21 @@ import { getMovies } from "@/api/movies";
 import { MovieType } from "@/types";
 import StateHandler, { States } from "@/components/state-handler";
 
-export default function MovieList({ header, movieSize, direction }: listType) {
+export default function MovieList({
+  header,
+  movieSize,
+  direction,
+  index,
+}: listType) {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["getAllMovies"],
     queryFn: getMovies,
   });
 
   if (isLoading) return <StateHandler state={States.Loading} />;
-
   return (
     <div className="my-8">
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-2">
         <p className="capitalize text-white text-lg">{header}</p>
         <Link
           href="/movies"
@@ -30,7 +34,7 @@ export default function MovieList({ header, movieSize, direction }: listType) {
       <div
         className={`w-full py-8 flex gap-6 overflow-x-scroll overflow-y-hidden no-scrollbar flex-${direction}`}
       >
-        {data.map((movie: MovieType) => (
+        {data.slice(index, index + 10).map((movie: MovieType) => (
           <div key={movie.id} className="flex-shrink-0">
             <Link href={`/movies/${movie.id}`}>
               <MovieItem size={movieSize} props={movie} />

@@ -10,11 +10,12 @@ export default function Home() {
       <Trailers />
       <div className="w-2/3 mx-auto">
         <Banner />
-        <MovieList header="Continue watching" movieSize="lg" direction="row" />
+        <MovieList header="Recently released" movieSize="lg" direction="row" index={0} />
         <MovieList
           header="Popular movies 2023"
           movieSize="sm"
           direction="row"
+          index={10}
         />
       </div>
     </div>

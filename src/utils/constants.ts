@@ -5,3 +5,10 @@ export const movieSize = {
     md: "w-64 h-40",
     lg: "w-96 h-52",
 };
+
+export const listOrder = {
+    asc: "asc",
+    desc: "desc",
+    random: "random"
+}
+

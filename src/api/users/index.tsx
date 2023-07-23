@@ -1,10 +1,8 @@
 import {
   AddToFavUserType,
-  CreateMovieType,
-  MovieType,
-  UserType,
+  EditUserType,
 } from "@/types";
-import { apiDeleteCall, apiGetCall, apiPostCall, apiPutCall } from "..";
+import { apiGetCall, apiPostCall, apiPutCall } from "..";
 
 export const getUsers = async () => {
   const response = await apiGetCall("/api/Users");
@@ -16,7 +14,7 @@ export const getUserById = async (id: string) => {
   return response.data;
 };
 
-export const editUser = async (data: UserType) => {
+export const editUser = async (data: EditUserType) => {
   const response = await apiPutCall("/api/Users", data);
   return response.data;
 };

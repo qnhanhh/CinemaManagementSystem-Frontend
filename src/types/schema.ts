@@ -127,6 +127,18 @@ export const userSchema = z.object({
     id: z.string(),
 });
 
+export const editUserSchema = z.object({
+    firstname: z.string().min(1, {
+        message: "First name is required"
+    }),
+    middleName: z.string().optional(),
+    lastname: z.string().min(1, {
+        message: "Last name is required"
+    }),
+    companyId: z.string().optional(),
+    birthDate: z.date().min(new Date(1900, 1, 1)).max(new Date()),
+});
+
 export const addToFavUserSchema=z.object({
     movieId: z.string(),
     userId: z.string()

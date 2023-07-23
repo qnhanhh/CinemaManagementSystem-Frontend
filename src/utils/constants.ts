@@ -36,3 +36,9 @@ export const rateValues = [
         value: 5,
     },
 ];
+
+export const systemRoles = {
+    admin: "admin",
+    user: "user",
+    publisher: "publisher",
+}

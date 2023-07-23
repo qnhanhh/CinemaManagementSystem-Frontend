@@ -12,6 +12,8 @@ import { Pen, Trash } from "lucide-react";
 import { useState } from "react";
 import View from "./view";
 import EditForm from "../edit-form";
+import Cookies from "js-cookie";
+import { systemRoles } from "@/utils/constants";
 
 interface DataTableRowActionsProps<MovieType> {
   row: Row<MovieType>;
@@ -21,6 +23,8 @@ interface DataTableRowActionsProps<MovieType> {
 export default function DataTableRowActions({
   row,
 }: DataTableRowActionsProps<MovieType>) {
+  const userRole = Cookies.get("role");
+
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
   const toggleEdit = () => {
@@ -37,12 +41,14 @@ export default function DataTableRowActions({
         <div className="grid gap-4 py-4">
           {isEdit ? <EditForm row={row} /> : <View row={row} />}
         </div>
-        <div className="ml-auto flex gap-3" onClick={toggleEdit}>
-          {!isEdit && <TextButton text="Edit" icon={Pen} />}
-          {row.original.status == "Inactive" && !isEdit && (
-            <TextButton text="Delete movie" icon={Trash} />
-          )}
-        </div>
+        {userRole == systemRoles.publisher && (
+          <div className="ml-auto flex gap-3" onClick={toggleEdit}>
+            {!isEdit && <TextButton text="Edit" icon={Pen} />}
+            {row.original.status == "Inactive" && !isEdit && (
+              <TextButton text="Delete movie" icon={Trash} />
+            )}
+          </div>
+        )}
       </DialogContent>
     </Dialog>
   );

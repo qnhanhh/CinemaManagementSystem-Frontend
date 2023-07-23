@@ -10,10 +10,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { editUser, getUserById } from "@/api/users";
-import { UserType } from "@/types";
+import { EditUserType, UserType } from "@/types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { userSchema } from "@/types/schema";
+import { editUserSchema, userSchema } from "@/types/schema";
 import {
   Form,
   FormControl,
@@ -38,22 +38,22 @@ export default function UserProfile() {
     queryFn: () => getUserById(userId),
   });
 
-  const form = useForm<UserType>({
-    resolver: zodResolver(userSchema),
+  console.log("data", data);
+
+  const form = useForm<EditUserType>({
+    resolver: zodResolver(editUserSchema),
     defaultValues: {
-      id: userId || "",
       firstname: data?.firstname || "",
       middleName: data?.middleName || "",
       lastname: data?.lastname || "",
-      imageUrl: data?.imageUrl || "",
       companyId: data?.companyId || "",
       birthDate: new Date(data?.birthDate || "1990-12-12"),
     },
   });
 
-  const { mutate: update } = useMutation((data: UserType) => editUser(data), {
+  const { mutate: update } = useMutation((data: EditUserType) => editUser(data), {
     onSuccess: (res) => {
-      console.log("register success", res);
+      console.log("update success", res);
       // router.push("/account/login");
     },
     onError: (err: any) => {
@@ -76,7 +76,7 @@ export default function UserProfile() {
 
   const onSubmit = () => {
     console.log(form.getValues());
-    update(form.getValues())
+    update(form.getValues());
   };
 
   if (isLoading) return <StateHandler state={States.Loading} />;
@@ -136,7 +136,20 @@ export default function UserProfile() {
                   </FormItem>
                 )}
               />
-              {/* <FormField
+              <FormField
+                control={form.control}
+                name="companyId"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Company</FormLabel>
+                    <FormControl>
+                      <Input placeholder={data.companyId||'Please contact admin to edit your company'} disabled {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
                 control={form.control}
                 name="birthDate"
                 render={({ field }) => (
@@ -178,7 +191,7 @@ export default function UserProfile() {
                     <FormMessage />
                   </FormItem>
                 )}
-              /> */}
+              />
               <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading && (
                   <Loader2Icon className="mr-2 h-4 w-4 animate-spin" />

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { systemRoles } from './utils/constants';
 
 // This function can be marked `async` if using `await` inside
 export default function middleware(request: NextRequest) {
@@ -13,6 +14,9 @@ export default function middleware(request: NextRequest) {
 
     if (!cookieToken && request.nextUrl.pathname.startsWith('/favorites') ||
         !cookieToken && request.nextUrl.pathname.startsWith('/admin-dashboard') ||
-        cookieToken && request.nextUrl.pathname.startsWith('/admin-dashboard') && cookieRole?.value.toLowerCase() != 'admin'
+        cookieToken && request.nextUrl.pathname.startsWith('/admin-dashboard')
+        && cookieRole?.value.toLowerCase() != systemRoles.admin ||
+        cookieToken && request.nextUrl.pathname.startsWith('/publishing')
+        && cookieRole?.value.toLowerCase() != systemRoles.publisher
     ) { return NextResponse.rewrite(loginUrl) }
 }

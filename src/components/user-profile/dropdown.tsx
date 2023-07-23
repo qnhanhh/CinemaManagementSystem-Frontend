@@ -11,9 +11,12 @@ import { LogOut } from "lucide-react";
 import { DialogTrigger } from "@/components/ui/dialog";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { systemRoles } from "@/utils/constants";
 
 export default function Dropdown() {
   const router = useRouter();
+  const userRole = Cookies.get("role");
 
   const logOut = () => {
     localStorage.removeItem("token");
@@ -38,8 +41,20 @@ export default function Dropdown() {
         <DialogTrigger asChild>
           <DropdownMenuItem>Profile</DropdownMenuItem>
         </DialogTrigger>
-        <DropdownMenuItem>Billing</DropdownMenuItem>
-        <DropdownMenuItem>Report</DropdownMenuItem>
+        {userRole == systemRoles.admin && (
+          <DropdownMenuItem>
+            <Link replace href="/admin-dashboard">
+              Admin dashboard
+            </Link>
+          </DropdownMenuItem>
+        )}
+        {userRole == systemRoles.publisher && (
+          <DropdownMenuItem>
+            <Link replace href="/admin-dashboard">
+              Publishing
+            </Link>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={logOut}>
           <div className="flex gap-1 items-center cursor-pointer">

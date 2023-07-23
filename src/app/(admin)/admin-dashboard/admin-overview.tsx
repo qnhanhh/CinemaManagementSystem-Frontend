@@ -8,9 +8,10 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { TabsContent } from "@/components/ui/tabs";
+import { MovieType } from "@/types";
 import { DollarSign, Users, CreditCard, Activity } from "lucide-react";
 
-export default function AdminOverview() {
+export default function AdminOverview({ movies }: { movies: MovieType[] }) {
   return (
     <TabsContent value="overview" className="space-y-4">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -74,11 +75,11 @@ export default function AdminOverview() {
         </Card>
         <Card className="col-span-3">
           <CardHeader>
-            <CardTitle>Recent Sales</CardTitle>
-            <CardDescription>You made 265 sales this month.</CardDescription>
+            <CardTitle>Recent Released</CardTitle>
+            <CardDescription>Sort by released date</CardDescription>
           </CardHeader>
           <CardContent>
-            <RecentSales />
+            <RecentSales movies={movies} />
           </CardContent>
         </Card>
       </div>

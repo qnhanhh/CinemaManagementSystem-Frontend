@@ -5,8 +5,22 @@ import AdminOverview from "./admin-overview";
 import AdminMovies from "./admin-movies";
 import AdminFunctions from "./admin-functions";
 import AdminUsers from "./admin-users";
+import { useQuery } from "@tanstack/react-query";
+import { getMovies } from "@/api/movies";
+import StateHandler, { States } from "@/components/state-handler";
 
 export default function DashboardPage() {
+  const allMovies = useQuery({
+    queryKey: ["getAllMovies"],
+    queryFn: getMovies,
+  });
+  
+  if (allMovies.isLoading) {
+    return <StateHandler state={States.Loading} />;
+  }
+
+  console.log(allMovies.data);
+
   return (
     <>
       <div className="flex-col md:flex">
@@ -23,7 +37,7 @@ export default function DashboardPage() {
               <TabsTrigger value="users">Users</TabsTrigger>
               <TabsTrigger value="functions">Functions</TabsTrigger>
             </TabsList>
-            <AdminOverview />
+            <AdminOverview movies={allMovies.data} />
             <AdminMovies />
             <AdminUsers />
             <AdminFunctions />

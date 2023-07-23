@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { TabsContent } from "@/components/ui/tabs";
 import { MovieType } from "@/types";
-import { DollarSign, Users, CreditCard, Activity } from "lucide-react";
+import { DollarSign, Activity } from "lucide-react";
 
 export default function PublishingOverview({ movies }: { movies: MovieType[] }) {
   return (

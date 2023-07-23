@@ -55,7 +55,7 @@ export default function PublishingPage() {
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="movies">Movies</TabsTrigger>
             </TabsList>
-            <PublishingOverview />
+            <PublishingOverview movies={movies.data} />
             <PublishingMovies movies={movies.data} />
           </Tabs>
         </div>

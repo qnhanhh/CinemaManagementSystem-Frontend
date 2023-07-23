@@ -29,8 +29,18 @@ import { Textarea } from "@/components/ui/textarea";
 import { Toaster } from "@/components/ui/toaster";
 import { toast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
-import { ActorType, CreateActorType, CreateGenreType } from "@/types";
-import { createActorSchema, createGenreSchema } from "@/types/schema";
+import {
+  ActorType,
+  CompanyType,
+  CreateActorType,
+  CreateCompanyType,
+  CreateGenreType,
+} from "@/types";
+import {
+  createActorSchema,
+  createCompanySchema,
+  createGenreSchema,
+} from "@/types/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Dialog,
@@ -56,13 +66,14 @@ import { useForm } from "react-hook-form";
 import StateHandler, { States } from "@/components/state-handler";
 import { useState } from "react";
 import Link from "next/link";
+import { createCompany, deleteCompany, getCompanies } from "@/api/companies";
 
 export default function AdminFunctions() {
-  const [table, setTable] = useState(true);
+  const [table, setTable] = useState("");
 
-  const handleScroll = (isTable: boolean, id: string) => {
+  const handleScroll = (table: string, id: string) => {
     const element = document.getElementById(id);
-    setTable(isTable);
+    setTable(table);
     element?.scrollIntoView({
       behavior: "smooth",
       block: "end",
@@ -209,7 +220,76 @@ export default function AdminFunctions() {
     genreMutation.mutate(genreForm.getValues());
   };
 
-  if (actorQuery.isLoading || genreQuery.isLoading)
+  const companyForm = useForm<CreateCompanyType>({
+    resolver: zodResolver(createCompanySchema),
+    defaultValues: {
+      name: "",
+      description: "",
+    },
+  });
+
+  const companyQuery = useQuery({
+    queryKey: ["getAllCompanies"],
+    queryFn: () => getCompanies(),
+  });
+
+  const companyDelete = useMutation((id: string) => deleteCompany(id), {
+    onSuccess: () => {
+      toast({
+        title: "Delete company successfully!",
+      });
+    },
+    onError: (err: any) => {
+      let errMessage = "";
+      if (err.response) {
+        errMessage = err.response.data["ErrorMessage"];
+      } else if (err.request) {
+        errMessage = err.request["responseText"];
+      } else {
+        console.log("err", err.message);
+        errMessage = "Please try again!";
+      }
+      console.log(err.config);
+      toast({
+        title: "Oh no something is wrong!",
+        description: errMessage,
+      });
+    },
+  });
+
+  const companyMutation = useMutation(
+    (data: CreateCompanyType) => createCompany(data),
+    {
+      onSuccess: () => {
+        toast({
+          title: "Create company successfully!",
+        });
+      },
+      onError: (err: any) => {
+        let errMessage = "";
+        if (err.response) {
+          errMessage = err.response.data["ErrorMessage"];
+        } else if (err.request) {
+          errMessage = err.request["responseText"];
+        } else {
+          console.log("err", err.message);
+          errMessage = "Please try again!";
+        }
+        console.log(err.config);
+        toast({
+          title: "Oh no something is wrong!",
+          description: errMessage,
+        });
+      },
+    }
+  );
+
+  const companyFormSubmit = () => {
+    console.log(companyForm.getValues());
+    companyMutation.mutate(companyForm.getValues());
+  };
+
+  if (actorQuery.isLoading || genreQuery.isLoading || companyQuery.isLoading)
     return <StateHandler state={States.Loading} />;
 
   return (
@@ -220,7 +300,7 @@ export default function AdminFunctions() {
             <CardTitle>Add actor</CardTitle>
             <CardDescription
               className="cursor-pointer text-center border border-slate-400 p-4 rounded-xl"
-              onClick={() => handleScroll(true, "actorList")}
+              onClick={() => handleScroll("actor", "actorList")}
             >
               View actors
             </CardDescription>
@@ -367,7 +447,7 @@ export default function AdminFunctions() {
             <CardTitle>Add genre</CardTitle>
             <CardDescription
               className="cursor-pointer text-center border border-slate-400 p-4 rounded-xl"
-              onClick={() => handleScroll(false, "genreList")}
+              onClick={() => handleScroll("genre", "genreList")}
             >
               View genres
             </CardDescription>
@@ -405,9 +485,66 @@ export default function AdminFunctions() {
             </Form>
           </CardContent>
         </Card>
+
+        <Card className="flex-1">
+          <CardHeader>
+            <CardTitle>Add company</CardTitle>
+            <CardDescription
+              className="cursor-pointer text-center border border-slate-400 p-4 rounded-xl"
+              onClick={() => handleScroll("company", "companyList")}
+            >
+              View companies
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Form {...companyForm}>
+              <form
+                onSubmit={companyForm.handleSubmit(companyFormSubmit)}
+                className="space-y-8 col-span-full"
+              >
+                <FormField
+                  control={companyForm.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Company name</FormLabel>
+                      <FormControl>
+                        <Input placeholder={field.value} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={companyForm.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Description</FormLabel>
+                      <FormControl>
+                        <Textarea placeholder={field.value} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button
+                  type="submit"
+                  className="w-full"
+                  disabled={companyMutation.isLoading}
+                >
+                  {companyMutation.isLoading && (
+                    <Loader2Icon className="mr-2 h-4 w-4 animate-spin" />
+                  )}
+                  Save changes
+                </Button>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
       </div>
 
-      {table ? (
+      {table == "actor" ? (
         <div id="actorList">
           <p className="text-white text-2xl font-semibold mt-4">
             All actors in the system
@@ -443,7 +580,7 @@ export default function AdminFunctions() {
             </TableBody>
           </Table>
         </div>
-      ) : (
+      ) : table == "genre" ? (
         <div id="genreList">
           <p className="text-white text-2xl font-semibold mt-4">
             All genres in the system
@@ -464,6 +601,36 @@ export default function AdminFunctions() {
                     <Trash
                       className="cursor-pointer"
                       onClick={() => genreDelete.mutate(item.id)}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      ) : (
+        <div id="companyList">
+          <p className="text-white text-2xl font-semibold mt-4">
+            All companies in the system
+          </p>
+          <Table className="text-white">
+            <TableHeader>
+              <TableRow>
+                <TableHead>ID</TableHead>
+                <TableHead>Name</TableHead>
+                <TableHead>Description</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {companyQuery.data.map((item: CompanyType) => (
+                <TableRow key={item.id}>
+                  <TableCell className="font-medium">{item.id}</TableCell>
+                  <TableCell>{item.name}</TableCell>
+                  <TableCell>{item.description}</TableCell>
+                  <TableCell>
+                    <Trash
+                      className="cursor-pointer"
+                      onClick={() => companyDelete.mutate(item.id)}
                     />
                   </TableCell>
                 </TableRow>

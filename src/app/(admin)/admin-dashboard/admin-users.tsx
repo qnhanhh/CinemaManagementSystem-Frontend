@@ -23,7 +23,7 @@ export default function AdminUsers() {
 
   return (
     <TabsContent value="users" className="space-y-4">
-      <Table>
+      <Table className="text-white">
         <TableHeader>
           <TableRow>
             <TableHead>ID</TableHead>

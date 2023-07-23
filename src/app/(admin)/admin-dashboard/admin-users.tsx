@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/table";
 import { TabsContent } from "@/components/ui/tabs";
 import { UserType } from "@/types";
+import { splitDate } from "@/utils/function";
 import { useQuery } from "@tanstack/react-query";
 
 export default function AdminUsers() {
@@ -30,6 +31,7 @@ export default function AdminUsers() {
             <TableHead>First name</TableHead>
             <TableHead>Middle name</TableHead>
             <TableHead>Last name</TableHead>
+            <TableHead>Date of birth</TableHead>
             <TableHead>Company</TableHead>
           </TableRow>
         </TableHeader>
@@ -40,6 +42,7 @@ export default function AdminUsers() {
               <TableCell>{item.firstname}</TableCell>
               <TableCell>{item.middleName}</TableCell>
               <TableCell>{item.lastname}</TableCell>
+              <TableCell>{splitDate(item.birthDate)}</TableCell>
               <TableCell>{item.companyId || "-"}</TableCell>
               <TableCell>
                 <Button>Change company</Button>

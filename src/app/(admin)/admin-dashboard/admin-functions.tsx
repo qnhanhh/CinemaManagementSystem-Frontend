@@ -67,6 +67,7 @@ import StateHandler, { States } from "@/components/state-handler";
 import { useState } from "react";
 import Link from "next/link";
 import { createCompany, deleteCompany, getCompanies } from "@/api/companies";
+import { splitDate } from "@/utils/function";
 
 export default function AdminFunctions() {
   const [table, setTable] = useState("");
@@ -566,7 +567,7 @@ export default function AdminFunctions() {
                   <TableCell>{item.name}</TableCell>
                   <TableCell>{item.description}</TableCell>
                   <TableCell>
-                    {item.birthDate.toString().split("T")[0]}
+                    {splitDate(item.birthDate)}
                   </TableCell>
                   <TableCell>{item.gender}</TableCell>
                   <TableCell>

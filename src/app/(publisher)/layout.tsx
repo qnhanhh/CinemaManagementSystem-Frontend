@@ -1,10 +1,11 @@
 "use client";
 
+import Navbar from "@/components/navbar";
 import "@/styles/globals.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Inter } from "next/font/google";
 import { Suspense } from "react";
-import Loading from "./account/loading";
+import Loading from "./publishing/loading";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,6 +28,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Suspense fallback={<Loading />}>
           <QueryClientProvider client={queryClient}>
+            <Navbar />
             {children}
           </QueryClientProvider>
         </Suspense>

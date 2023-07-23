@@ -23,6 +23,7 @@ import StateHandler, { States } from "@/components/state-handler";
 import { ActorType, CompanyType, GenreType, RateType } from "@/types";
 import Link from "next/link";
 import CommentItem from "./comment-item";
+import { splitDate } from "@/utils/function";
 
 export default function MovieDetail({ id }: { id: string }) {
   const token=localStorage.getItem("token")
@@ -80,7 +81,7 @@ export default function MovieDetail({ id }: { id: string }) {
                     <TableRow>
                       <TableCell>Release Date</TableCell>
                       <TableCell>
-                        {data.releaseDate.toString().split("T")[0]}
+                        {splitDate(data.releaseDate)}
                       </TableCell>
                     </TableRow>
                     <TableRow>

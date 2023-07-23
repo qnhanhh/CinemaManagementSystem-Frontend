@@ -50,7 +50,7 @@ export default function Dropdown() {
         )}
         {userRole == systemRoles.publisher && (
           <DropdownMenuItem>
-            <Link replace href="/admin-dashboard">
+            <Link replace href="/publishing">
               Publishing
             </Link>
           </DropdownMenuItem>

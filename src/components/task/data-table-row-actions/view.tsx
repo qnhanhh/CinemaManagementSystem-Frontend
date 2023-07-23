@@ -2,6 +2,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { MovieType } from "@/types";
+import { splitDate } from "@/utils/function";
 import { Row } from "@tanstack/react-table";
 
 export default function View({ row }: { row: Row<MovieType> }) {
@@ -44,7 +45,7 @@ export default function View({ row }: { row: Row<MovieType> }) {
       <Input
         disabled
         id="releaseDate"
-        value={row.original.releaseDate.toString().split("T")[0]}
+        value={splitDate(row.original.releaseDate)}
         className="col-span-3"
       />
       <Label htmlFor="status" className="text-right">

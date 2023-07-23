@@ -7,6 +7,7 @@ import { ImgBaseURL } from "@/utils/constants";
 import { MovieType } from "@/types";
 import { activeStatus } from "../data/data";
 import DataTableRowActions from "../data-table-row-actions/detail-dialog";
+import { splitDate } from "@/utils/function";
 
 export const columns: ColumnDef<MovieType>[] = [
   {
@@ -22,7 +23,7 @@ export const columns: ColumnDef<MovieType>[] = [
               src={`${ImgBaseURL}${row.original.imageUrl}`}
               width={50}
               height={80}
-              style={{height:'auto', width:'auto'}}
+              style={{ height: "auto", width: "auto" }}
               alt={row.original.title}
             />
             {row.original.title}
@@ -39,7 +40,7 @@ export const columns: ColumnDef<MovieType>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex items-center">
-          <span>{row.original.releaseDate.toString().split("T")[0]}</span>
+          <span>{splitDate(row.original.releaseDate)}</span>
         </div>
       );
     },

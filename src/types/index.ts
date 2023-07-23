@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { movieSchema, loginFormSchema, registerFormSchema, genreSchema, rateSchema, actorSchema, companySchema, userSchema } from "./schema";
+import { movieSchema, loginFormSchema, registerFormSchema, genreSchema, rateSchema, actorSchema, companySchema, userSchema, editRateSchema } from "./schema";
 
 export type LoginRequest = z.infer<typeof loginFormSchema>
 
@@ -10,6 +10,8 @@ export type MovieType = z.infer<typeof movieSchema>
 export type GenreType = z.infer<typeof genreSchema>
 
 export type RateType = z.infer<typeof rateSchema>
+
+export type EditRateType = z.infer<typeof editRateSchema>
 
 export type ActorType = z.infer<typeof actorSchema>
 

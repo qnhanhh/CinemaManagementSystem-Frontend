@@ -54,8 +54,16 @@ export const genreSchema = z.object({
 
 export const rateSchema = z.object({
     rating: z.number().min(1).max(5),
-    comment: z.string().max(300, {
-        message: "Comment must be less than 300 characters long"
+    comment: z.string().min(1).max(300, {
+        message: "Comment should not be empty and it must be less than 300 characters long"
+    }),
+})
+
+export const editRateSchema = z.object({
+    id:z.string(),
+    rating: z.number().min(1).max(5),
+    comment: z.string().min(1).max(300, {
+        message: "Comment should not be empty and it must be less than 300 characters long"
     }),
 })
 

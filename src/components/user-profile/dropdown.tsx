@@ -11,14 +11,11 @@ import { LogOut } from "lucide-react";
 import { DialogTrigger } from "@/components/ui/dialog";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
-import { useLoginStore } from "@/store";
 
 export default function Dropdown() {
   const router = useRouter();
-  const setLogin = useLoginStore((state) => state.setLogin);
 
   const logOut = () => {
-    setLogin(false);
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     Cookies.remove("token");

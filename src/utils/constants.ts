@@ -14,3 +14,25 @@ export const listOrder = {
     random: "random"
 }
 
+export const rateValues = [
+    {
+        icon: "😓",
+        value: 1,
+    },
+    {
+        icon: "😀",
+        value: 2,
+    },
+    {
+        icon: "😁",
+        value: 3,
+    },
+    {
+        icon: "🤩",
+        value: 4,
+    },
+    {
+        icon: "🥰",
+        value: 5,
+    },
+];

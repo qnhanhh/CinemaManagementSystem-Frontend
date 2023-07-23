@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { ImgBaseURL, YoutubeBaseURL } from "@/utils/constants";
 import { Badge } from "../ui/badge";
-import { ChevronRight, Play, Plus, Quote, Star } from "lucide-react";
+import { ChevronRight, Plus, Quote, Star } from "lucide-react";
 import TextButton from "../button/text-button";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
@@ -23,10 +23,9 @@ import StateHandler, { States } from "@/components/state-handler";
 import { ActorType, CompanyType, GenreType, RateType } from "@/types";
 import Link from "next/link";
 import CommentItem from "./comment-item";
-import { useLoginStore } from "@/store";
 
 export default function MovieDetail({ id }: { id: string }) {
-  const isLogin = useLoginStore((state) => state.isLogin);
+  const token=localStorage.getItem("token")
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["getMovieDetail", id],
@@ -138,8 +137,8 @@ export default function MovieDetail({ id }: { id: string }) {
                 ) : (
                   "No reviews yet."
                 )}
-                <div className="my-4 flex justify-between items-center">
-                  {isLogin ? (
+                <div className="my-4 flex gap-2 justify-between items-center">
+                  {token ? (
                     <Dialog>
                       <DialogTrigger asChild>
                         <Button
@@ -154,8 +153,8 @@ export default function MovieDetail({ id }: { id: string }) {
                         <Rating />
                       </DialogContent>
                     </Dialog>
-                  ):(
-                    <div>Log in to write your review</div>
+                  ) : (
+                    <div>Log in to write review</div>
                   )}
                   <div>
                     <Sheet>
@@ -184,15 +183,21 @@ export default function MovieDetail({ id }: { id: string }) {
                   </div>
                 </div>
                 <div className="flex gap-8 justify-center my-6">
-                  <TextButton text="Watch now" icon={Play} />
-                  {isLogin && (
+                  {/* <TextButton text="Watch now" icon={Play} /> */}
+                  {token && (
                     <TextButton text="Add to favorites" icon={Plus} />
                   )}
                 </div>
               </div>
             </div>
             <div className="w-full h-[500px] bg-white">
-              <iframe className="w-full h-full" src={`${YoutubeBaseURL}${data.trailerUrl}?&autoplay=1`} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen ></iframe>
+              <iframe
+                className="w-full h-full"
+                src={`${YoutubeBaseURL}${data.trailerUrl}?&autoplay=1`}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              ></iframe>
             </div>
             <div className="mt-6">
               <MovieList

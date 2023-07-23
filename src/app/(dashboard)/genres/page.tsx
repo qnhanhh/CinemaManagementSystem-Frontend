@@ -20,6 +20,7 @@ export default function Genres() {
         <MovieList
           key={genre.id}
           header={genre.name}
+          genreId={genre.id}
           movieSize="lg"
           direction="row"
           index={0}

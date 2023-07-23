@@ -1,4 +1,4 @@
-import { ActorType, CreateActorType, EditRateType, MovieType, RateType } from "@/types"
+import { ActorType, CreateActorType} from "@/types"
 import { apiDeleteCall, apiGetCall, apiPostCall, apiPutCall } from ".."
 
 export const getActors = async () => {

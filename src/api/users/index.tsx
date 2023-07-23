@@ -23,3 +23,8 @@ export const addToUserFavorite = async (data: AddToFavUserType) => {
   const response = await apiPostCall("/api/Users/AddToFavorites", data);
   return response.data;
 };
+
+export const removeFromUserFavorite = async (data: AddToFavUserType) => {
+  const response = await apiPostCall("/api/Users/RemoveFromFavorites", data);
+  return response.data;
+};

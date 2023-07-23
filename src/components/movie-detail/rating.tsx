@@ -4,7 +4,7 @@ import { Textarea } from "../ui/textarea";
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 import { rateValues } from "@/utils/constants";
-import { RateType } from "@/types";
+import { CreateRateType } from "@/types";
 import { rateSchema } from "@/types/schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,27 +18,29 @@ import {
 } from "../ui/form";
 import { useMutation } from "@tanstack/react-query";
 import { createRate } from "@/api/ratings";
-import { useRouter } from "next/navigation";
 import { toast } from "../ui/use-toast";
 import { Toaster } from "../ui/toaster";
 
-export default function Rating() {
-  const router=useRouter()
-  
-  const form = useForm<RateType>({
+export default function Rating({movieId, userId}:{movieId:string, userId:string}) {
+  const form = useForm<CreateRateType>({
     resolver: zodResolver(rateSchema),
     defaultValues: {
       rating: 3,
       comment: "Phim yeu thich nhat",
+      movieId: movieId,
+      userId: userId
     },
   });
 
   const { mutate: create, isLoading } = useMutation(
-    (data: RateType) => createRate(data),
+    (data: CreateRateType) => createRate(data),
     {
       onSuccess: (res) => {
         console.log(res);
-        // router.push("/home");
+        toast({
+          title: "Comment successfully!",
+        });
+        window.location.reload()
       },
       onError: (err: any) => {
         let errMessage = "";
@@ -64,6 +66,7 @@ export default function Rating() {
     create(form.getValues());
   };
 
+  if(isLoading) return <div>Loading...</div>
   return (
     <>
       <DialogTitle>Rate the movie</DialogTitle>
@@ -121,7 +124,7 @@ export default function Rating() {
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full">
+          <Button className="w-full" onClick={onSubmit}>
             Comment
           </Button>
         </form>

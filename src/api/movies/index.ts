@@ -11,6 +11,16 @@ export const getMovieById = async (id: string) => {
     return response.data
 }
 
+export const getMovieByGenre = async (id: string) => {
+    const response = await apiGetCall(`/api/Movies/ByGenre/${id}`)
+    return response.data
+}
+
+export const getMovieByCompany = async (id: string) => {
+    const response = await apiGetCall(`/api/Movies/ByCompany/${id}`)
+    return response.data
+}
+
 export const createMovie = async (data: CreateMovieType) => {
     const response = await apiPostCall('/api/Movies', data)
     return response.data

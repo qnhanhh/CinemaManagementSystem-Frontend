@@ -12,7 +12,8 @@ export default function MovieList({
   movieSize,
   direction,
   index,
-  scale
+  scale,
+  genreId,
 }: listType) {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["getAllMovies"],
@@ -25,7 +26,7 @@ export default function MovieList({
       <div className="flex justify-between items-center mb-2">
         <p className="capitalize text-white text-lg">{header}</p>
         <Link
-          href="/movies"
+          href={genreId ? `/movies/genre/${genreId}` : "/movies"}
           className="text-gray-400 text-sm flex items-center gap-1"
         >
           All movies

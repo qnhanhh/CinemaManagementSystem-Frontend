@@ -1,4 +1,4 @@
-import { EditRateType, MovieType, RateType } from "@/types"
+import { CreateRateType, EditRateType, MovieType, RateType } from "@/types"
 import { apiDeleteCall, apiGetCall, apiPostCall, apiPutCall } from ".."
 
 export const getRates = async () => {
@@ -11,12 +11,12 @@ export const getRateById = async (id: string) => {
     return response.data
 }
 
-export const createRate = async (data: RateType) => {
+export const createRate = async (data: CreateRateType) => {
     const response = await apiPostCall('/api/Rates', data)
     return response.data
 }
 
-export const editRate = async (data: EditRateType) => {
+export const editRate = async (data: CreateRateType) => {
     const response = await apiPutCall('/api/Rates', data)
     return response.data
 }

@@ -45,7 +45,9 @@ export const movieSchema = z.object({
     releaseDate: z.date().min(new Date(1900, 1, 1)),
     status: z.string().min(1, {
         message: "Movie status is required"
-    })
+    }),
+    avgRate: z.number().min(0),
+    companyNames: z.array(z.string()),
 })
 
 export const createMovieSchema = z.object({
@@ -74,6 +76,18 @@ export const createGenreSchema = z.object({
 })
 
 export const rateSchema = z.object({
+    id: z.string(),
+    userId: z.string(),
+    movieId: z.string(),
+    rating: z.number().min(1).max(5),
+    comment: z.string().min(1).max(300, {
+        message: "Comment should not be empty and it must be less than 300 characters long"
+    }),
+})
+
+export const createRateSchema = z.object({
+    userId: z.string(),
+    movieId: z.string(),
     rating: z.number().min(1).max(5),
     comment: z.string().min(1).max(300, {
         message: "Comment should not be empty and it must be less than 300 characters long"
@@ -139,7 +153,7 @@ export const editUserSchema = z.object({
     birthDate: z.date().min(new Date(1900, 1, 1)).max(new Date()),
 });
 
-export const addToFavUserSchema=z.object({
+export const addToFavUserSchema = z.object({
     movieId: z.string(),
     userId: z.string()
 })

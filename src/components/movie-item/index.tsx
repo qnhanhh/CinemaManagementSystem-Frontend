@@ -1,9 +1,7 @@
-import { Heart, Play, Plus, Star } from "lucide-react";
+import { Play, Star } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import PlainButton from "../button/plain-button";
-import TextButton from "../button/text-button";
-import { useState } from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -17,13 +15,12 @@ import { Badge } from "@/components/ui/badge";
 export default function MovieItem({
   size,
   props,
-  scale
+  scale,
 }: {
   size: string;
   props: MovieType;
-  scale?:boolean
+  scale?: boolean;
 }) {
-  const [isAdded, setIsAdded] = useState(false);
   const { sm, md, lg } = movieSize;
   const itemSize = size == "sm" ? sm : size == "md" ? md : lg;
 
@@ -31,11 +28,7 @@ export default function MovieItem({
     return date.toString().split("-")[0];
   };
 
-  const toggleAdd = () => {
-    setIsAdded(!isAdded);
-  };
-
-  const scaleRate=scale==false?1:1.2
+  const scaleRate = scale == false ? 1 : 1.2;
 
   return (
     <motion.div
@@ -85,7 +78,7 @@ export default function MovieItem({
         {size == "sm" ? (
           <div className="text-white text-xs flex gap-1">
             <Star fill="orange" className="text-orange-400" size={16} />
-            4.8
+            {props.avgRate}
           </div>
         ) : size == "md" ? (
           <div className="text-black text-xs py-1 px-3 bg-white rounded-full flex justify-center items-center">
@@ -97,14 +90,13 @@ export default function MovieItem({
           </div>
         )}
       </div>
-      <div
-        onClick={toggleAdd}
-        className="text-white hidden group-hover:block absolute bottom-2 right-2"
-      >
-        {isAdded ? (
-          <TextButton text="Added to favorites" icon={Heart} />
+
+      <div className="text-white hidden group-hover:block absolute bottom-2 right-2">
+        Created by
+        {props.companyNames.length > 0 ? (
+          props.companyNames.map((company) => <p key={company}>{company}</p>)
         ) : (
-          <TextButton text="Add to favorites" icon={Plus} />
+          <p>top companies</p>
         )}
       </div>
     </motion.div>

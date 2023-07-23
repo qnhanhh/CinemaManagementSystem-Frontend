@@ -3,5 +3,6 @@ export type listType = {
     movieSize: string,
     direction: string,
     index:number,
-    scale?: boolean
+    scale?: boolean,
+    genreId?:string
 }

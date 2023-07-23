@@ -18,7 +18,7 @@ export default function Trailers() {
         <SheetContent className="bg-black p-4">
           <ScrollArea className="h-full w-full mt-5">
             <SheetDescription className="flex flex-col items-center gap-6">
-              <MovieList header="New trailers" movieSize="md" direction="col" />
+              <MovieList header="New trailers" movieSize="md" direction="col" index={1} scale={false} />
             </SheetDescription>
           </ScrollArea>
         </SheetContent>

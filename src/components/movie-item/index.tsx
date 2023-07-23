@@ -17,9 +17,11 @@ import { Badge } from "@/components/ui/badge";
 export default function MovieItem({
   size,
   props,
+  scale
 }: {
   size: string;
   props: MovieType;
+  scale?:boolean
 }) {
   const [isAdded, setIsAdded] = useState(false);
   const { sm, md, lg } = movieSize;
@@ -33,10 +35,12 @@ export default function MovieItem({
     setIsAdded(!isAdded);
   };
 
+  const scaleRate=scale==false?1:1.2
+
   return (
     <motion.div
       whileHover={{
-        scale: 1.2,
+        scale: scaleRate,
         zIndex: 10,
       }}
       transition={{ type: "tween", duration: 0.2, ease: "easeInOut" }}

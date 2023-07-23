@@ -12,6 +12,7 @@ export default function MovieList({
   movieSize,
   direction,
   index,
+  scale
 }: listType) {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["getAllMovies"],
@@ -37,7 +38,7 @@ export default function MovieList({
         {data.slice(index, index + 10).map((movie: MovieType) => (
           <div key={movie.id} className="flex-shrink-0">
             <Link href={`/movies/${movie.id}`}>
-              <MovieItem size={movieSize} props={movie} />
+              <MovieItem size={movieSize} props={movie} scale={scale} />
             </Link>
           </div>
         ))}

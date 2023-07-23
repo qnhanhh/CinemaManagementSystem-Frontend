@@ -1,5 +1,7 @@
 export const ImgBaseURL = 'https://image.tmdb.org/t/p/original'
 
+export const YoutubeBaseURL = 'https://www.youtube.com/embed'
+
 export const movieSize = {
     sm: "w-56 h-36",
     md: "w-64 h-40",

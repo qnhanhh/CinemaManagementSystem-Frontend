@@ -3,7 +3,7 @@
 import { getMovieById } from "@/api/movies";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
-import { ImgBaseURL } from "@/utils/constants";
+import { ImgBaseURL, YoutubeBaseURL } from "@/utils/constants";
 import { Badge } from "../ui/badge";
 import { ChevronRight, Play, Plus, Quote, Star } from "lucide-react";
 import TextButton from "../button/text-button";
@@ -139,7 +139,7 @@ export default function MovieDetail({ id }: { id: string }) {
                   "No reviews yet."
                 )}
                 <div className="my-4 flex justify-between items-center">
-                  {isLogin && (
+                  {isLogin ? (
                     <Dialog>
                       <DialogTrigger asChild>
                         <Button
@@ -154,6 +154,8 @@ export default function MovieDetail({ id }: { id: string }) {
                         <Rating />
                       </DialogContent>
                     </Dialog>
+                  ):(
+                    <div>Log in to write your review</div>
                   )}
                   <div>
                     <Sheet>
@@ -188,6 +190,9 @@ export default function MovieDetail({ id }: { id: string }) {
                   )}
                 </div>
               </div>
+            </div>
+            <div className="w-full h-[500px] bg-white">
+              <iframe className="w-full h-full" src={`${YoutubeBaseURL}${data.trailerUrl}?&autoplay=1`} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen ></iframe>
             </div>
             <div className="mt-6">
               <MovieList

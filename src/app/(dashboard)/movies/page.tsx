@@ -19,11 +19,13 @@ export default function Movies() {
     <div>
       <p className="text-white text-2xl font-semibold pl-6 mb-6">All movies</p>
       <div className="flex flex-wrap gap-6 justify-center">
-        {data.map((movie: MovieType) => (
-          <Link href={`/movies/${movie.id}`} key={movie.id}>
-            <MovieItem size="md" props={movie} />
-          </Link>
-        ))}
+        {data
+          .filter((item: MovieType) => item.status.toLowerCase() == "active")
+          .map((movie: MovieType) => (
+            <Link href={`/movies/${movie.id}`} key={movie.id}>
+              <MovieItem size="md" props={movie} />
+            </Link>
+          ))}
       </div>
     </div>
   );

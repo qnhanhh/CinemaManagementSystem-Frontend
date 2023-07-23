@@ -1,8 +1,7 @@
 import { Input } from "@/components/ui/input";
-import { EditMovieType, MovieType } from "@/types";
-import { editMovieSchema } from "@/types/schema";
+import { CreateMovieType } from "@/types";
+import { createMovieSchema } from "@/types/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Row } from "@tanstack/react-table";
 import { useForm } from "react-hook-form";
 import {
   Form,
@@ -31,36 +30,34 @@ import {
   CommandInput,
   CommandItem,
 } from "@/components/ui/command";
-import { editMovie } from "@/api/movies";
+import { createMovie } from "@/api/movies";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "@/components/ui/use-toast";
 
-export default function EditForm({ row }: { row: Row<MovieType> }) {
-  const form = useForm<EditMovieType>({
-    resolver: zodResolver(editMovieSchema),
+export default function CreateForm() {
+  const form = useForm<CreateMovieType>({
+    resolver: zodResolver(createMovieSchema),
     defaultValues: {
-      id: row.original.id,
-      title: row.original.title,
-      description: row.original.description,
-      trailerUrl: row.original.trailerUrl,
-      imageUrl: row.original.imageUrl,
-      backDropUrl: row.original.backDropUrl,
-      ageRequired: row.original.ageRequired,
-      releaseDate: new Date(row.original.releaseDate),
-      status: row.original.status,
+      title: "",
+      description: "",
+      trailerUrl: "/",
+      imageUrl: "/",
+      backDropUrl: "/",
+      ageRequired: 14,
+      releaseDate: new Date(),
+      status: "",
     },
   });
 
   const { register } = form;
 
-  const { mutate: update, isLoading } = useMutation(
-    (data: EditMovieType) => editMovie(data),
+  const { mutate: create, isLoading } = useMutation(
+    (data: CreateMovieType) => createMovie(data),
     {
       onSuccess: (res) => {
         console.log("res", res);
         toast({
-          title: "Update movie successfully!",
-          description: `You have just updated the movie: ${row.original.title}`,
+          title: "Create movie successfully!",
         });
         window.location.reload();
       },
@@ -85,7 +82,7 @@ export default function EditForm({ row }: { row: Row<MovieType> }) {
 
   const onSubmit = () => {
     console.log("values", form.getValues());
-    update(form.getValues());
+    create(form.getValues());
   };
 
   return (
@@ -102,7 +99,7 @@ export default function EditForm({ row }: { row: Row<MovieType> }) {
               <FormItem className="flex flex-col">
                 <FormLabel>Title</FormLabel>
                 <FormControl>
-                  <Input placeholder={row?.original.title} {...field} />
+                  <Input placeholder={field.value} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -115,10 +112,7 @@ export default function EditForm({ row }: { row: Row<MovieType> }) {
               <FormItem className="flex flex-col">
                 <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <Textarea
-                    placeholder={row?.original.description}
-                    {...field}
-                  />
+                  <Textarea placeholder={field.value} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -135,7 +129,7 @@ export default function EditForm({ row }: { row: Row<MovieType> }) {
                     type="number"
                     min={0}
                     max={18}
-                    placeholder={row?.original.ageRequired.toString()}
+                    placeholder={field.value.toString()}
                     {...register("ageRequired", { valueAsNumber: true })}
                   />
                 </FormControl>

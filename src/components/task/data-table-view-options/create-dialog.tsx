@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Plus } from "lucide-react";
 import EditForm from "../edit-form";
+import CreateForm from "../create-form";
 
 export function CreateDialog() {
   return (
@@ -28,7 +29,7 @@ export function CreateDialog() {
           <DialogTitle>Create new movie</DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          {/* <EditForm row={} /> */}
+          <CreateForm />
         </div>
       </DialogContent>
     </Dialog>

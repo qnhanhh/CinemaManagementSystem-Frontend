@@ -50,6 +50,26 @@ export const movieSchema = z.object({
     companyNames: z.array(z.string()),
 })
 
+export const editMovieSchema = z.object({
+    id: z.string(),
+    title: z.string().min(1, {
+        message: "Movie title is required"
+    }),
+    description: z.string().min(1, {
+        message: "Movie description is required"
+    }),
+    trailerUrl: z.string().startsWith('/'),
+    imageUrl: z.string().startsWith('/'),
+    backDropUrl: z.string().startsWith('/'),
+    ageRequired: z.number().min(0, {
+        message: "Age required is required"
+    }),
+    releaseDate: z.date().min(new Date(1900, 1, 1)),
+    status: z.string().min(1, {
+        message: "Movie status is required"
+    }),
+})
+
 export const createMovieSchema = z.object({
     title: z.string().min(1, {
         message: "Movie title is required"
@@ -57,6 +77,9 @@ export const createMovieSchema = z.object({
     description: z.string().min(1, {
         message: "Movie description is required"
     }),
+    trailerUrl: z.string().startsWith('/'),
+    imageUrl: z.string().startsWith('/'),
+    backDropUrl: z.string().startsWith('/'),
     ageRequired: z.number().min(0, {
         message: "Age required is required"
     }),

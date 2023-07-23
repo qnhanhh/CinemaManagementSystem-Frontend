@@ -3,8 +3,44 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PublishingOverview from "./publishing-overview";
 import PublishingMovies from "./publishing-movies";
+import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getMovieByCompany } from "@/api/movies";
+import StateHandler, { States } from "@/components/state-handler";
+import { getUserById } from "@/api/users";
 
 export default function PublishingPage() {
+  const [userId, setUserId] = useState("");
+  const [company, setCompany] = useState("");
+
+  useEffect(() => {
+    if (localStorage) {
+      setUserId(localStorage.getItem("user-id") || "");
+    }
+  }, []);
+
+  const user = useQuery({
+    queryKey: ["getCurrentUser", userId],
+    queryFn: () => getUserById(userId),
+  });
+
+  useEffect(() => {
+    if (user.data) {
+      setCompany(user.data.companyId);
+    }
+  }, [user.data]);
+
+  const movies = useQuery({
+    queryKey: ["getAllMoviesByCom", company],
+    queryFn: () => getMovieByCompany(company),
+  });
+
+  if (user.isLoading || movies.isLoading) {
+    return <StateHandler state={States.Loading} />;
+  }
+
+  console.log(movies.data);
+  
   return (
     <>
       <div className="flex-col md:flex">
@@ -20,7 +56,7 @@ export default function PublishingPage() {
               <TabsTrigger value="movies">Movies</TabsTrigger>
             </TabsList>
             <PublishingOverview />
-            <PublishingMovies />
+            <PublishingMovies movies={movies.data} />
           </Tabs>
         </div>
       </div>

@@ -1,11 +1,13 @@
 import { z } from "zod";
-import { movieSchema, loginFormSchema, registerFormSchema, genreSchema, rateSchema, actorSchema, companySchema, userSchema, editRateSchema, createActorSchema, createCompanySchema, createGenreSchema, createMovieSchema, addToFavUserSchema, editUserSchema, createRateSchema, genreMovieSchema } from "./schema";
+import { movieSchema, loginFormSchema, registerFormSchema, genreSchema, rateSchema, actorSchema, companySchema, userSchema, editRateSchema, createActorSchema, createCompanySchema, createGenreSchema, createMovieSchema, addToFavUserSchema, editUserSchema, createRateSchema, genreMovieSchema, editMovieSchema } from "./schema";
 
 export type LoginRequest = z.infer<typeof loginFormSchema>
 
 export type RegisterRequest = z.infer<typeof registerFormSchema>
 
 export type MovieType = z.infer<typeof movieSchema>
+
+export type EditMovieType = z.infer<typeof editMovieSchema>
 
 export type CreateMovieType = z.infer<typeof createMovieSchema>
 

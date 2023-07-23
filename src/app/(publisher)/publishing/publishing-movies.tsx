@@ -1,20 +1,9 @@
 import { columns } from "@/components/task/columns/movies";
 import { DataTable } from "@/components/task/data-table";
 import { TabsContent } from "@/components/ui/tabs";
-import { useQuery } from "@tanstack/react-query";
-import { getMovies } from "@/api/movies";
-import StateHandler, { States } from "@/components/state-handler";
+import { MovieType } from "@/types";
 
-export default function PublishingMovies() {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["getAllMovies"],
-    queryFn: getMovies,
-  });
-
-  if (isLoading) {
-    return <StateHandler state={States.Loading} />;
-  }
-
+export default function PublishingMovies({ movies }: { movies: MovieType[] }) {
   return (
     <TabsContent value="movies" className="space-y-4">
       <div className="hidden h-full flex-1 flex-col space-y-8 py-8 md:flex">
@@ -25,7 +14,7 @@ export default function PublishingMovies() {
             </h2>
           </div>
         </div>
-        <DataTable data={data} columns={columns} />
+        {movies && <DataTable data={movies} columns={columns} />}
       </div>
     </TabsContent>
   );

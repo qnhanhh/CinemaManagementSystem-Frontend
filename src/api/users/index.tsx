@@ -25,3 +25,8 @@ export const removeFromUserFavorite = async (data: AddToFavUserType) => {
   const response = await apiPostCall("/api/Users/RemoveFromFavorites", data);
   return response.data;
 };
+
+export const getUserFavById = async (id: string) => {
+  const response = await apiPostCall("/api/Users/MyFavorites", id);
+  return response.data;
+};

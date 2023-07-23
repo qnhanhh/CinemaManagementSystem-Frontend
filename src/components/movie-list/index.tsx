@@ -38,20 +38,29 @@ export default function MovieList({
         className={`w-full py-8 flex gap-6 overflow-x-scroll overflow-y-hidden no-scrollbar flex-${direction}`}
       >
         {movieList
-          ? movieList.map((movie: MovieType) => (
-              <div key={movie.id} className="flex-shrink-0">
-                <Link href={`/movies/${movie.id}`}>
-                  <MovieItem size={movieSize} props={movie} scale={scale} />
-                </Link>
-              </div>
-            ))
-          : data.slice(index, index + 10).map((movie: MovieType) => (
-              <div key={movie.id} className="flex-shrink-0">
-                <Link href={`/movies/${movie.id}`}>
-                  <MovieItem size={movieSize} props={movie} scale={scale} />
-                </Link>
-              </div>
-            ))}
+          ? movieList
+              .filter(
+                (item: MovieType) => item.status.toLowerCase() == "active"
+              )
+              .map((movie: MovieType) => (
+                <div key={movie.id} className="flex-shrink-0">
+                  <Link href={`/movies/${movie.id}`}>
+                    <MovieItem size={movieSize} props={movie} scale={scale} />
+                  </Link>
+                </div>
+              ))
+          : data
+              .filter(
+                (item: MovieType) => item.status.toLowerCase() == "active"
+              )
+              .slice(index, index + 10)
+              .map((movie: MovieType) => (
+                <div key={movie.id} className="flex-shrink-0">
+                  <Link href={`/movies/${movie.id}`}>
+                    <MovieItem size={movieSize} props={movie} scale={scale} />
+                  </Link>
+                </div>
+              ))}
       </div>
     </div>
   );

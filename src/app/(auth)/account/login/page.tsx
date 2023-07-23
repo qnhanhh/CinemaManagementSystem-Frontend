@@ -23,8 +23,6 @@ import { loginFormSchema } from "@/types/schema";
 import { LoginRequest } from "@/types";
 import { Loader2Icon } from "lucide-react";
 import Cookies from "js-cookie";
-import { useLoginStore } from "@/store";
-import { useEffect } from "react";
 
 export default function Login() {
   const router = useRouter();
@@ -46,6 +44,7 @@ export default function Login() {
         localStorage.setItem("token", res.token);
         localStorage.setItem("user-id", res.id);
         Cookies.set("token", res.token);
+        Cookies.set("role", res.userName);
         router.push("/home");
       },
       onError: (err: any) => {

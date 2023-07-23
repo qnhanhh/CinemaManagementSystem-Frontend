@@ -19,7 +19,9 @@ export default function Dropdown() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     Cookies.remove("token");
+    Cookies.remove("role");
     router.push("/home");
+    window.location.reload();
   };
 
   return (

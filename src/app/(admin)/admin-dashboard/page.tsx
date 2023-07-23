@@ -4,6 +4,8 @@ import { Metadata } from "next";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AdminOverview from "./admin-overview";
 import AdminMovies from "./admin-movies";
+import AdminFunctions from "./admin-functions";
+import AdminUsers from "./admin-users";
 // import AdminUsers from "./admin-users";
 
 export const metadata: Metadata = {
@@ -26,11 +28,12 @@ export default function DashboardPage() {
               <TabsTrigger value="overview">Overview</TabsTrigger>
               <TabsTrigger value="movies">Movies</TabsTrigger>
               <TabsTrigger value="users">Users</TabsTrigger>
-              <TabsTrigger value="profile">Admin Profile</TabsTrigger>
+              <TabsTrigger value="functions">Functions</TabsTrigger>
             </TabsList>
             <AdminOverview />
             <AdminMovies />
-            {/* <AdminUsers /> */}
+            <AdminUsers />
+            <AdminFunctions />
           </Tabs>
         </div>
       </div>

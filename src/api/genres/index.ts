@@ -21,7 +21,7 @@ export const editGenre = async (data: GenreType) => {
     return response.data
 }
 
-export const deleteRate = async (id: string) => {
+export const deleteGenre = async (id: string) => {
     const response = await apiDeleteCall(`/api/Genres/${id}`)
     return response.data
 }

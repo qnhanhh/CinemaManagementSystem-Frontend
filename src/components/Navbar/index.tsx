@@ -3,9 +3,16 @@ import MenuList from "@/components/navbar/menu-list";
 import SearchBar from "@/components/navbar/search-bar";
 import UserProfile from "../user-profile";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
-  const token=localStorage.getItem("token")
+  const [token, setToken] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      setToken(true);
+    }
+  }, []);
 
   return (
     <div className="flex gap-4 justify-between items-center p-6">
@@ -15,7 +22,11 @@ export default function Navbar() {
       {token ? (
         <UserProfile />
       ) : (
-        <Link href="/account/login" replace={true} className="text-white font-bold">
+        <Link
+          href="/account/login"
+          replace={true}
+          className="text-white font-bold"
+        >
           Login
         </Link>
       )}

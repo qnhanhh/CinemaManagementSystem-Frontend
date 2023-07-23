@@ -69,8 +69,8 @@ export default function Register() {
   };
 
   return (
-    <div className="h-screen">
-      <div className="relative top-1/2 -translate-y-1/2">
+    <div className="my-4">
+      <div>
         <p className="text-white text-2xl text-center font-semibold">
           Muuvii is glad that YOU are here 🎉🎉
         </p>

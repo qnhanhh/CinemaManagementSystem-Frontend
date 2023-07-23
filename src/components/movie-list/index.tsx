@@ -14,6 +14,7 @@ export default function MovieList({
   index,
   scale,
   genreId,
+  movieList,
 }: listType) {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["getAllMovies"],
@@ -36,13 +37,21 @@ export default function MovieList({
       <div
         className={`w-full py-8 flex gap-6 overflow-x-scroll overflow-y-hidden no-scrollbar flex-${direction}`}
       >
-        {data.slice(index, index + 10).map((movie: MovieType) => (
-          <div key={movie.id} className="flex-shrink-0">
-            <Link href={`/movies/${movie.id}`}>
-              <MovieItem size={movieSize} props={movie} scale={scale} />
-            </Link>
-          </div>
-        ))}
+        {movieList
+          ? movieList.map((movie: MovieType) => (
+              <div key={movie.id} className="flex-shrink-0">
+                <Link href={`/movies/${movie.id}`}>
+                  <MovieItem size={movieSize} props={movie} scale={scale} />
+                </Link>
+              </div>
+            ))
+          : data.slice(index, index + 10).map((movie: MovieType) => (
+              <div key={movie.id} className="flex-shrink-0">
+                <Link href={`/movies/${movie.id}`}>
+                  <MovieItem size={movieSize} props={movie} scale={scale} />
+                </Link>
+              </div>
+            ))}
       </div>
     </div>
   );

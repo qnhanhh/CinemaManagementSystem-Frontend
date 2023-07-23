@@ -71,6 +71,12 @@ export const genreSchema = z.object({
     name: z.string(),
 })
 
+export const genreMovieSchema = z.object({
+    id: z.string(),
+    name: z.string(),
+    movies: z.array(movieSchema)
+})
+
 export const createGenreSchema = z.object({
     name: z.string(),
 })
@@ -150,7 +156,7 @@ export const editUserSchema = z.object({
         message: "Last name is required"
     }),
     companyId: z.string().optional(),
-    birthDate: z.date().min(new Date(1900, 1, 1)).max(new Date()),
+    birthDate: z.date().min(new Date(1900, 1, 1)).max(new Date()).optional(),
 });
 
 export const addToFavUserSchema = z.object({

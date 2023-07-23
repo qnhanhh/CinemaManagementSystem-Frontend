@@ -6,6 +6,11 @@ export const getGenres = async () => {
     return response.data
 }
 
+export const getGenresMovie = async () => {
+    const response = await apiGetCall('/api/Genres/Details')
+    return response.data
+}
+
 export const getGenreById = async (id: string) => {
     const response = await apiGetCall(`/api/Genres/${id}`)
     return response.data

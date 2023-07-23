@@ -90,15 +90,6 @@ export default function MovieItem({
           </div>
         )}
       </div>
-
-      <div className="text-white hidden group-hover:block absolute bottom-2 right-2">
-        Created by
-        {props.companyNames.length > 0 ? (
-          props.companyNames.map((company) => <p key={company}>{company}</p>)
-        ) : (
-          <p>top companies</p>
-        )}
-      </div>
     </motion.div>
   );
 }

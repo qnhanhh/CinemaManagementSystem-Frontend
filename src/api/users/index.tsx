@@ -1,7 +1,4 @@
-import {
-  AddToFavUserType,
-  EditUserType,
-} from "@/types";
+import { AddToFavUserType, EditUserType } from "@/types";
 import { apiGetCall, apiPostCall, apiPutCall } from "..";
 
 export const getUsers = async () => {

@@ -1,6 +1,8 @@
 import { getUsers } from "@/api/users";
+import CompanyPopup from "@/components/admin-dashboard/company-popup";
 import StateHandler, { States } from "@/components/state-handler";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import {
   Table,
   TableBody,
@@ -45,7 +47,10 @@ export default function AdminUsers() {
               <TableCell>{splitDate(item.birthDate)}</TableCell>
               <TableCell>{item.companyId || "-"}</TableCell>
               <TableCell>
-                <Button>Change company</Button>
+                <Dialog>
+                  <DialogTrigger>Change company</DialogTrigger>
+                  <CompanyPopup user={item} />
+                </Dialog>
               </TableCell>
             </TableRow>
           ))}

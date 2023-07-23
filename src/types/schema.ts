@@ -106,7 +106,7 @@ export const createActorSchema = z.object({
 export const companySchema = z.object({
     name: z.string(),
     description: z.string(),
-    id: z.string().optional(),
+    id: z.string(),
 })
 
 export const createCompanySchema = z.object({

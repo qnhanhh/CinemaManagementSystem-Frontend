@@ -1,4 +1,4 @@
-import { MovieType } from "@/types"
+import { CreateMovieType, MovieType } from "@/types"
 import { apiDeleteCall, apiGetCall, apiPostCall, apiPutCall } from ".."
 
 export const getMovies = async () => {
@@ -11,7 +11,7 @@ export const getMovieById = async (id: string) => {
     return response.data
 }
 
-export const createMovie = async (data: MovieType) => {
+export const createMovie = async (data: CreateMovieType) => {
     const response = await apiPostCall('/api/Movies', data)
     return response.data
 }

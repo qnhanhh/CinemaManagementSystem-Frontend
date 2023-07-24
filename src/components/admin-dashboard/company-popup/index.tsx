@@ -49,13 +49,14 @@ export default function CompanyPopup({ user }: { user: UserType }) {
   });
 
   const onSubmit = () => {
-    const newUser={
-        firstname: user.firstname,
-        lastname: user.lastname,
-        middleName: user.middleName,
-        birthDate: user.birthDate,
-        companyId: company,
-    }
+    const newUser = {
+      id: user.id,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      middleName: user.middleName,
+      birthDate: user.birthDate,
+      companyId: company,
+    };
     console.log(newUser);
     userMutation.mutate(newUser);
   };

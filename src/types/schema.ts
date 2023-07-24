@@ -168,11 +168,13 @@ export const userSchema = z.object({
         message: "Last name is required"
     }),
     companyId: z.string().optional(),
+    companyName: z.string().optional(),
     birthDate: z.date().min(new Date(1900, 1, 1)).max(new Date()).optional(),
     id: z.string(),
 });
 
 export const editUserSchema = z.object({
+    id: z.string(),
     firstname: z.string().min(1, {
         message: "First name is required"
     }),

@@ -134,6 +134,7 @@ export const editRateSchema = z.object({
 export const actorSchema = z.object({
     name: z.string(),
     description: z.string(),
+    imageUrl: z.string().startsWith('/'),
     birthDate: z.date().min(new Date(1900, 1, 1)).max(new Date()),
     gender: z.string(),
     id: z.string(),
@@ -149,6 +150,7 @@ export const createActorSchema = z.object({
 export const companySchema = z.object({
     name: z.string(),
     description: z.string(),
+    imageUrl: z.string().startsWith('/'),
     id: z.string(),
 })
 

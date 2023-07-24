@@ -34,6 +34,7 @@ import { useEffect, useState } from "react";
 import { addToUserFavorite, removeFromUserFavorite } from "@/api/users";
 import { toast } from "../ui/use-toast";
 import { Toaster } from "../ui/toaster";
+import ActorItem from "./actor-item";
 
 export default function MovieDetail({ id }: { id: string }) {
   const [token, setToken] = useState("");
@@ -185,7 +186,11 @@ export default function MovieDetail({ id }: { id: string }) {
                           ? data.actors.map(
                               (item: ActorType, index: number) => (
                                 <span className="mr-2" key={item.id}>
-                                  {item.name}
+                                  <ActorItem
+                                    name={item.name}
+                                    img={item.imageUrl || ""}
+                                    desc={item.description}
+                                  />
                                   <span>
                                     {index !== data.actors.length - 1 && ","}
                                   </span>
@@ -196,13 +201,17 @@ export default function MovieDetail({ id }: { id: string }) {
                       </TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell>Publisher</TableCell>
+                      <TableCell>Company</TableCell>
                       <TableCell>
                         {data.companies.length > 0
                           ? data.companies.map(
                               (item: CompanyType, index: number) => (
                                 <span className="mr-2" key={item.id}>
-                                  {item.name}
+                                  <ActorItem
+                                    name={item.name}
+                                    img={item.imageUrl || ""}
+                                    desc={item.description}
+                                  />
                                   <span>
                                     {index !== data.companies.length - 1 && ","}
                                   </span>

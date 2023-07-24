@@ -1,5 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MovieType } from "@/types";
+import { ImgBaseURL } from "@/utils/constants";
 import { splitDate } from "@/utils/function";
 import Image from "next/image";
 
@@ -18,7 +19,7 @@ export function RecentSales({ movies }: { movies: MovieType[] }) {
           >
             <div className="space-y-1 flex gap-4 items-center">
               <Image
-                src={item.imageUrl}
+                src={`${ImgBaseURL}${item.imageUrl}`}
                 alt={item.title}
                 width={50}
                 height={80}

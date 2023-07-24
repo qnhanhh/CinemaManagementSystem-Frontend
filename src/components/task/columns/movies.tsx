@@ -55,7 +55,7 @@ export const columns: ColumnDef<MovieType>[] = [
     ),
     cell: ({ row }) => {
       const status = activeStatus.find(
-        (item) => item.value === row.original.status
+        (item) => item.value.toLowerCase() === row.original.status.toLowerCase()
       );
       if (!status) {
         return null;

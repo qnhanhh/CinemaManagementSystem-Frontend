@@ -46,7 +46,7 @@ export default function AdminOverview({ movies }: { movies: MovieType[] }) {
             <CardTitle>Overview</CardTitle>
           </CardHeader>
           <CardContent className="pl-2">
-            <Overview />
+            <Overview movies={movies} />
           </CardContent>
         </Card>
         <Card className="col-span-3">

@@ -43,6 +43,7 @@ export default function UserProfile() {
   const form = useForm<EditUserType>({
     resolver: zodResolver(editUserSchema),
     defaultValues: {
+      id:userId,
       firstname: data?.firstname || "",
       middleName: data?.middleName || "",
       lastname: data?.lastname || "",
@@ -138,19 +139,6 @@ export default function UserProfile() {
               />
               <FormField
                 control={form.control}
-                name="companyId"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Company</FormLabel>
-                    <FormControl>
-                      <Input placeholder={data.companyId||'Please contact admin to edit your company'} disabled {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
                 name="birthDate"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
@@ -192,7 +180,7 @@ export default function UserProfile() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full" disabled={isLoading}>
+              <Button onClick={()=>console.log(form.getValues())} className="w-full" disabled={isLoading}>
                 {isLoading && (
                   <Loader2Icon className="mr-2 h-4 w-4 animate-spin" />
                 )}

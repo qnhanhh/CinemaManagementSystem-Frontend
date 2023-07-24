@@ -38,7 +38,7 @@ export default function AdminUsers() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {users.data.filter((item:UserType)=>item.companyName!=null).map((item: UserType) => (
+          {users.data.map((item: UserType) => (
             <TableRow key={item.id}>
               <TableCell className="font-medium">{item.id}</TableCell>
               <TableCell>{item.firstname}</TableCell>
@@ -46,12 +46,14 @@ export default function AdminUsers() {
               <TableCell>{item.lastname}</TableCell>
               <TableCell>{splitDate(item.birthDate)}</TableCell>
               <TableCell>{item.companyName || "-"}</TableCell>
-              <TableCell>
-                <Dialog>
-                  <DialogTrigger>Change company</DialogTrigger>
-                  <CompanyPopup user={item} />
-                </Dialog>
-              </TableCell>
+              {item.companyId != null && (
+                <TableCell>
+                  <Dialog>
+                    <DialogTrigger>Change company</DialogTrigger>
+                    <CompanyPopup user={item} />
+                  </Dialog>
+                </TableCell>
+              )}
             </TableRow>
           ))}
         </TableBody>

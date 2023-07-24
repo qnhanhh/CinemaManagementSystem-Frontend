@@ -20,6 +20,7 @@ export default function Home() {
           header="Popular movies 2023"
           movieSize="sm"
           direction="row"
+          sortBy="avgRate"
           index={10}
         />
       </div>

@@ -7,5 +7,6 @@ export type listType = {
     index:number,
     scale?: boolean,
     genreId?:string,
+    sortBy?:string,
     movieList?:MovieType[]
 }

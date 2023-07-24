@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getMovies } from "@/api/movies";
 import { MovieType } from "@/types";
 import StateHandler, { States } from "@/components/state-handler";
+import { useEffect, useState } from "react";
 
 export default function MovieList({
   header,
@@ -15,11 +16,23 @@ export default function MovieList({
   scale,
   genreId,
   movieList,
+  sortBy,
 }: listType) {
+  const [movieData, setMovieData] = useState<MovieType[]>([]);
+
   const { data, isLoading, isError } = useQuery({
     queryKey: ["getAllMovies"],
     queryFn: getMovies,
   });
+
+  const sortMovie = (sort: string, arr: MovieType[]) => {
+    if (sort == "avgRate") {
+      return arr.sort((a: MovieType, b: MovieType) =>
+        a.avgRate > b.avgRate ? -1 : 1
+      );
+    }
+    return arr;
+  };
 
   if (isLoading) return <StateHandler state={States.Loading} />;
   return (
@@ -37,8 +50,36 @@ export default function MovieList({
       <div
         className={`w-full py-8 flex gap-6 overflow-x-scroll overflow-y-hidden no-scrollbar flex-${direction}`}
       >
-        {movieList
+        {sortBy
           ? movieList
+            ? sortMovie(sortBy, movieList)
+                .filter(
+                  (item: MovieType) => item.status.toLowerCase() == "active"
+                )
+                .map((movie: MovieType) => (
+                  <div key={movie.id} className="flex-shrink-0">
+                    <Link href={`/movies/${movie.id}`}>
+                      <MovieItem size={movieSize} props={movie} scale={scale} />
+                    </Link>
+                  </div>
+                ))
+            : sortMovie(sortBy, data)
+                .filter(
+                  (item: MovieType) => item.status.toLowerCase() == "active"
+                )
+                .slice(index, index + 10)
+                .map((movie: MovieType) => (
+                  <div key={movie.id} className="flex-shrink-0">
+                    <Link href={`/movies/${movie.id}`}>
+                      <MovieItem size={movieSize} props={movie} scale={scale} />
+                    </Link>
+                  </div>
+                ))
+          : movieList
+          ? movieList
+              .sort((a: MovieType, b: MovieType) =>
+                a.releaseDate > b.releaseDate ? -1 : 1
+              )
               .filter(
                 (item: MovieType) => item.status.toLowerCase() == "active"
               )
@@ -50,6 +91,9 @@ export default function MovieList({
                 </div>
               ))
           : data
+              .sort((a: MovieType, b: MovieType) =>
+                a.releaseDate > b.releaseDate ? -1 : 1
+              )
               .filter(
                 (item: MovieType) => item.status.toLowerCase() == "active"
               )

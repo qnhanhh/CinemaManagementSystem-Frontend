@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MovieType } from "@/types";
 import { splitDate } from "@/utils/function";
+import Image from "next/image";
 
 export function RecentSales({ movies }: { movies: MovieType[] }) {
   return (
@@ -16,10 +17,12 @@ export function RecentSales({ movies }: { movies: MovieType[] }) {
             className="flex items-center justify-between w-full"
           >
             <div className="space-y-1 flex gap-4 items-center">
-              <Avatar className="h-9 w-9">
-                <AvatarImage src="/avatars/01.png" alt="Avatar" />
-                <AvatarFallback>{item.title}</AvatarFallback>
-              </Avatar>
+              <Image
+                src={item.imageUrl}
+                alt={item.title}
+                width={50}
+                height={80}
+              />
               <div>
                 <p className="text-sm font-medium leading-none">{item.title}</p>
                 <p className="text-sm text-muted-foreground">

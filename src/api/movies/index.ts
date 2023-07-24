@@ -21,6 +21,11 @@ export const getMovieByCompany = async (id: string) => {
     return response.data
 }
 
+export const searchMovie = async (data: string) => {
+    const response = await apiGetCall(`/api/Movies/Search/${data}`)
+    return response.data
+}
+
 export const createMovie = async (data: CreateMovieType) => {
     const response = await apiPostCall('/api/Movies', data)
     return response.data

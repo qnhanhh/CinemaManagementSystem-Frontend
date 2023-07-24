@@ -28,7 +28,7 @@ export default function Favorites() {
           header="Recently added"
           movieSize="sm"
           direction="row"
-        //   movieList={data}
+          movieList={data}
         />
       )}
       <MovieList
